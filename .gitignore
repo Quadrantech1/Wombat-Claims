@@ -1,0 +1,13 @@
+# Local credentials
+.env
+.env.*
+!.env.example
+
+# Dependencies and generated test output
+node_modules/
+playwright-report/
+test-results/
+playwright/artifacts/
+
+# Playwright authentication state
+playwright/.auth/

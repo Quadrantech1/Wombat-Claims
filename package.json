@@ -1,0 +1,22 @@
+{
+  "name": "claims-playwright-framework",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright page-object tests for claims document validation",
+  "scripts": {
+    "test": "playwright test",
+    "test:online-provider": "playwright test tests/onlineprovider2-direct-validation.spec.ts",
+    "test:auth-setup": "playwright test tests/authsetup.spec.ts",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "report": "playwright show-report",
+    "install:browsers": "playwright install chromium",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^22.15.0",
+    "tesseract.js": "^6.0.1",
+    "typescript": "^5.8.3"
+  }
+}
