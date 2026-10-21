@@ -3139,3 +3139,87 @@
 {"level":"info","message":"[TabsPolicyDetailSection>clickTabOption] tab option: Customer(s)","timestamp":"2026-10-19 02:52:44"}
 {"level":"info","message":"[ControlBase>click] Clicking element: locator('//a[@title=\"Customer(s)\"]')","timestamp":"2026-10-19 02:52:45"}
 {"level":"info","message":"[ControlBase>waitWhileControlDisappears] Waiting for element to disappear: locator('//div[@class=\\'ajax-load\\' and @id]')","timestamp":"2026-10-19 02:52:45"}
+{"level":"info","message":"[date-util.getDateWithSpecificFormat] - Getting formatted date with offset: 1, format: MM/dd/yyyy","timestamp":"2026-10-22 00:48:17"}
+{"level":"info","message":"[date-util.getDateWithSpecificFormat] - Formatted date: 10/23/2026","timestamp":"2026-10-22 00:48:17"}
+{"level":"info","message":"[date-util.getDateWithSpecificFormat] - Getting formatted date with offset: 30, format: MM/dd/yyyy","timestamp":"2026-10-22 00:48:17"}
+{"level":"info","message":"[date-util.getDateWithSpecificFormat] - Formatted date: 11/21/2026","timestamp":"2026-10-22 00:48:17"}
+{"level":"info","message":"[NavigationHelper.openBrandWebPage] - Opening brand web page at https://orca.qas.petpartners.com","timestamp":"2026-10-22 00:48:17"}
+{"level":"info","message":"[NavigationHelper.openBrandWebPage] - Successfully opened brand web page at https://orca.qas.petpartners.com","timestamp":"2026-10-22 00:48:21"}
+{"level":"info","message":"[login-orca-util.loginToOrca] - Logging in as admin (MFA enabled: false)","timestamp":"2026-10-22 00:48:21"}
+{"level":"info","message":"[LoginPage.iAmLoggedUsingRole] Login using role: admin","timestamp":"2026-10-22 00:48:21"}
+{"level":"info","message":"[TextBox>setText] Set text in element: locator('#Email'), value: [orcaautomationtesting@petpartners.com]","timestamp":"2026-10-22 00:48:21"}
+{"level":"info","message":"[TextBox>setText] Set text in element: locator('#Password'), value: [Welcome2023]","timestamp":"2026-10-22 00:48:22"}
+{"level":"info","message":"[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//button[text()=\"Login\"]')","timestamp":"2026-10-22 00:48:22"}
+{"level":"info","message":"[ControlBase.clickAndWait] networkidle state reached after click","timestamp":"2026-10-22 00:48:37"}
+{"level":"info","message":"[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')","timestamp":"2026-10-22 00:48:37"}
+{"level":"info","message":"[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')","timestamp":"2026-10-22 00:48:37"}
+{"level":"info","message":"[MenuTopSection>clickOnHamburgerIcon] - Opening Hamburger Menu","timestamp":"2026-10-22 00:48:38"}
+{"level":"info","message":"[MenuTopSection>click Legacy Hamburger Menu] - Using click for legacy dropdown","timestamp":"2026-10-22 00:48:38"}
+{"level":"info","message":"[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')","timestamp":"2026-10-22 00:48:38"}
+{"level":"info","message":"[ControlBase>click] Clicking element: locator('//a[(contains(@id,\\'nav-dropdown\\') or @ngbdropdownitem or contains(@class,\\'dropdown-item\\')) and normalize-space(.)=\\'Claims\\']')","timestamp":"2026-10-22 00:48:38"}
+{"level":"info","message":"[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//a[contains(text(),\\'Assigned\\')]')","timestamp":"2026-10-22 00:48:41"}
+{"level":"info","message":"[ControlBase.clickAndWait] networkidle state reached after click","timestamp":"2026-10-22 00:48:43"}
+{"level":"info","message":"[Table>clickFirstRow] Clicking first row of table","timestamp":"2026-10-22 00:48:43"}
+{"level":"info","message":"[ControlBase>waitForDisappear] Element has disappeared: locator('//a[contains(., \\'Assigned\\')]/parent::*/parent::*/parent::*//table[@class=\\'table table-striped table-bordered tablesorter\\']')","timestamp":"2026-10-22 00:49:01"}
+{"level":"info","message":"[date-util.getDateWithSpecificFormat] - Getting formatted date with offset: 1, format: MM/dd/yyyy","timestamp":"2026-10-22 00:52:17"}
+{"level":"info","message":"[date-util.getDateWithSpecificFormat] - Formatted date: 10/23/2026","timestamp":"2026-10-22 00:52:17"}
+{"level":"info","message":"[date-util.getDateWithSpecificFormat] - Getting formatted date with offset: 30, format: MM/dd/yyyy","timestamp":"2026-10-22 00:52:17"}
+{"level":"info","message":"[date-util.getDateWithSpecificFormat] - Formatted date: 11/21/2026","timestamp":"2026-10-22 00:52:17"}
+{"level":"info","message":"[NavigationHelper.openBrandWebPage] - Opening brand web page at https://orca.qas.petpartners.com","timestamp":"2026-10-22 00:52:17"}
+{"level":"info","message":"[NavigationHelper.openBrandWebPage] - Successfully opened brand web page at https://orca.qas.petpartners.com","timestamp":"2026-10-22 00:52:24"}
+{"level":"info","message":"[login-orca-util.loginToOrca] - Logging in as admin (MFA enabled: false)","timestamp":"2026-10-22 00:52:24"}
+{"level":"info","message":"[LoginPage.iAmLoggedUsingRole] Login using role: admin","timestamp":"2026-10-22 00:52:24"}
+{"level":"info","message":"[TextBox>setText] Set text in element: locator('#Email'), value: [orcaautomationtesting@petpartners.com]","timestamp":"2026-10-22 00:52:24"}
+{"level":"info","message":"[TextBox>setText] Set text in element: locator('#Password'), value: [Welcome2023]","timestamp":"2026-10-22 00:52:24"}
+{"level":"info","message":"[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//button[text()=\"Login\"]')","timestamp":"2026-10-22 00:52:24"}
+{"level":"info","message":"[ControlBase.clickAndWait] networkidle state reached after click","timestamp":"2026-10-22 00:52:39"}
+{"level":"info","message":"[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')","timestamp":"2026-10-22 00:52:39"}
+{"level":"info","message":"[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')","timestamp":"2026-10-22 00:52:39"}
+{"level":"info","message":"[MenuTopSection>clickOnHamburgerIcon] - Opening Hamburger Menu","timestamp":"2026-10-22 00:52:39"}
+{"level":"info","message":"[MenuTopSection>click Legacy Hamburger Menu] - Using click for legacy dropdown","timestamp":"2026-10-22 00:52:39"}
+{"level":"info","message":"[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')","timestamp":"2026-10-22 00:52:39"}
+{"level":"info","message":"[ControlBase>click] Clicking element: locator('//a[(contains(@id,\\'nav-dropdown\\') or @ngbdropdownitem or contains(@class,\\'dropdown-item\\')) and normalize-space(.)=\\'Claims\\']')","timestamp":"2026-10-22 00:52:40"}
+{"level":"info","message":"[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//a[contains(text(),\\'Assigned\\')]')","timestamp":"2026-10-22 00:52:42"}
+{"level":"info","message":"[ControlBase.clickAndWait] networkidle state reached after click","timestamp":"2026-10-22 00:52:44"}
+{"level":"info","message":"[Table>clickFirstRow] Clicking first row of table","timestamp":"2026-10-22 00:52:44"}
+{"level":"info","message":"[ControlBase>waitForDisappear] Element has disappeared: locator('//a[contains(., \\'Assigned\\')]/parent::*/parent::*/parent::*//table[@class=\\'table table-striped table-bordered tablesorter\\']')","timestamp":"2026-10-22 00:53:01"}
+{"level":"info","message":"[ClaimDetailPage>getNameOnClaimsDetails] Getting name on claims details","timestamp":"2026-10-22 00:53:01"}
+{"level":"info","message":"[ControlBase>getText] Got text from element: locator('//div[@id=\\'claim-details\\']//address/strong'), value: [Igor Litinsky]","timestamp":"2026-10-22 00:53:02"}
+{"level":"info","message":"[ClaimDetailPage>getNameOnClaimsDetails] Retrieving text from nameOnClaimsDetailsLabel Igor Litinsky","timestamp":"2026-10-22 00:53:02"}
+{"level":"info","message":"[ControlBase>getText] Got text from element: locator('//div[@id=\\'claim-details\\']//address/strong'), value: [Igor Litinsky]","timestamp":"2026-10-22 00:53:02"}
+{"level":"info","message":"[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//div[@class=\\'row-fluid\\'][1]//*[contains(text(),\\'Return to Policy\\')]')","timestamp":"2026-10-22 00:53:02"}
+{"level":"info","message":"[ControlBase.clickAndWait] networkidle state reached after click","timestamp":"2026-10-22 00:53:13"}
+{"level":"info","message":"[TabsPolicyDetailSection>clickTabOption] tab option: Customer(s)","timestamp":"2026-10-22 00:53:13"}
+{"level":"info","message":"[ControlBase>click] Clicking element: locator('//a[@title=\"Customer(s)\"]')","timestamp":"2026-10-22 00:53:13"}
+{"level":"info","message":"[ControlBase>waitWhileControlDisappears] Waiting for element to disappear: locator('//div[@class=\\'ajax-load\\' and @id]')","timestamp":"2026-10-22 00:53:15"}
+{"level":"info","message":"[date-util.getDateWithSpecificFormat] - Getting formatted date with offset: 1, format: MM/dd/yyyy","timestamp":"2026-10-22 00:53:51"}
+{"level":"info","message":"[date-util.getDateWithSpecificFormat] - Formatted date: 10/23/2026","timestamp":"2026-10-22 00:53:51"}
+{"level":"info","message":"[date-util.getDateWithSpecificFormat] - Getting formatted date with offset: 30, format: MM/dd/yyyy","timestamp":"2026-10-22 00:53:51"}
+{"level":"info","message":"[date-util.getDateWithSpecificFormat] - Formatted date: 11/21/2026","timestamp":"2026-10-22 00:53:51"}
+{"level":"info","message":"[NavigationHelper.openBrandWebPage] - Opening brand web page at https://orca.qas.petpartners.com","timestamp":"2026-10-22 00:53:52"}
+{"level":"info","message":"[NavigationHelper.openBrandWebPage] - Successfully opened brand web page at https://orca.qas.petpartners.com","timestamp":"2026-10-22 00:53:55"}
+{"level":"info","message":"[login-orca-util.loginToOrca] - Logging in as admin (MFA enabled: false)","timestamp":"2026-10-22 00:53:55"}
+{"level":"info","message":"[LoginPage.iAmLoggedUsingRole] Login using role: admin","timestamp":"2026-10-22 00:53:55"}
+{"level":"info","message":"[TextBox>setText] Set text in element: locator('#Email'), value: [orcaautomationtesting@petpartners.com]","timestamp":"2026-10-22 00:53:55"}
+{"level":"info","message":"[TextBox>setText] Set text in element: locator('#Password'), value: [Welcome2023]","timestamp":"2026-10-22 00:53:55"}
+{"level":"info","message":"[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//button[text()=\"Login\"]')","timestamp":"2026-10-22 00:53:55"}
+{"level":"info","message":"[ControlBase.clickAndWait] networkidle state reached after click","timestamp":"2026-10-22 00:54:02"}
+{"level":"info","message":"[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')","timestamp":"2026-10-22 00:54:02"}
+{"level":"info","message":"[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')","timestamp":"2026-10-22 00:54:02"}
+{"level":"info","message":"[MenuTopSection>clickOnHamburgerIcon] - Opening Hamburger Menu","timestamp":"2026-10-22 00:54:03"}
+{"level":"info","message":"[MenuTopSection>click Legacy Hamburger Menu] - Using click for legacy dropdown","timestamp":"2026-10-22 00:54:03"}
+{"level":"info","message":"[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')","timestamp":"2026-10-22 00:54:03"}
+{"level":"info","message":"[ControlBase>click] Clicking element: locator('//a[(contains(@id,\\'nav-dropdown\\') or @ngbdropdownitem or contains(@class,\\'dropdown-item\\')) and normalize-space(.)=\\'Claims\\']')","timestamp":"2026-10-22 00:54:03"}
+{"level":"info","message":"[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//a[contains(text(),\\'Assigned\\')]')","timestamp":"2026-10-22 00:54:05"}
+{"level":"info","message":"[ControlBase.clickAndWait] networkidle state reached after click","timestamp":"2026-10-22 00:54:10"}
+{"level":"info","message":"[Table>clickFirstRow] Clicking first row of table","timestamp":"2026-10-22 00:54:10"}
+{"level":"info","message":"[ControlBase>waitForDisappear] Element has disappeared: locator('//a[contains(., \\'Assigned\\')]/parent::*/parent::*/parent::*//table[@class=\\'table table-striped table-bordered tablesorter\\']')","timestamp":"2026-10-22 00:54:53"}
+{"level":"info","message":"[ClaimDetailPage>getNameOnClaimsDetails] Getting name on claims details","timestamp":"2026-10-22 00:54:53"}
+{"level":"info","message":"[ControlBase>getText] Got text from element: locator('//div[@id=\\'claim-details\\']//address/strong'), value: [Igor Litinsky]","timestamp":"2026-10-22 00:54:54"}
+{"level":"info","message":"[ClaimDetailPage>getNameOnClaimsDetails] Retrieving text from nameOnClaimsDetailsLabel Igor Litinsky","timestamp":"2026-10-22 00:54:54"}
+{"level":"info","message":"[ControlBase>getText] Got text from element: locator('//div[@id=\\'claim-details\\']//address/strong'), value: [Igor Litinsky]","timestamp":"2026-10-22 00:54:54"}
+{"level":"info","message":"[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//div[@class=\\'row-fluid\\'][1]//*[contains(text(),\\'Return to Policy\\')]')","timestamp":"2026-10-22 00:54:54"}
+{"level":"info","message":"[ControlBase.clickAndWait] networkidle state reached after click","timestamp":"2026-10-22 00:55:07"}
+{"level":"info","message":"[TabsPolicyDetailSection>clickTabOption] tab option: Customer(s)","timestamp":"2026-10-22 00:55:07"}
+{"level":"info","message":"[ControlBase>click] Clicking element: locator('//a[@title=\"Customer(s)\"]')","timestamp":"2026-10-22 00:55:07"}
+{"level":"info","message":"[ControlBase>waitWhileControlDisappears] Waiting for element to disappear: locator('//div[@class=\\'ajax-load\\' and @id]')","timestamp":"2026-10-22 00:55:07"}

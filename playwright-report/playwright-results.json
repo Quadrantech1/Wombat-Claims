@@ -2,7 +2,7 @@
   "config": {
     "argv": [
       "C:\\Program Files\\nodejs\\node.exe",
-      "C:\\Users\\Anil\\Documents\\repos\\Claims.Automation\\node_modules\\@playwright\\test\\cli.js",
+      "C:\\Users\\Anil\\Documents\\repos\\PPI-Claims\\node_modules\\@playwright\\test\\cli.js",
       "test",
       "--grep=@ClaimsTest",
       "--project=main-tests",
@@ -12,8 +12,8 @@
       "--grep-invert=@Bug",
       "--headed"
     ],
-    "configFile": "C:\\Users\\Anil\\Documents\\repos\\Claims.Automation\\playwright.config.ts",
-    "rootDir": "C:/Users/Anil/Documents/repos/Claims.Automation",
+    "configFile": "C:\\Users\\Anil\\Documents\\repos\\PPI-Claims\\playwright.config.ts",
+    "rootDir": "C:/Users/Anil/Documents/repos/PPI-Claims",
     "failOnFlakyTests": false,
     "forbidOnly": false,
     "fullyParallel": true,
@@ -29,7 +29,7 @@
     "preserveOutput": "always",
     "projects": [
       {
-        "outputDir": "C:/Users/Anil/Documents/repos/Claims.Automation/test-results",
+        "outputDir": "C:/Users/Anil/Documents/repos/PPI-Claims/test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -37,7 +37,7 @@
         },
         "id": "main-tests",
         "name": "main-tests",
-        "testDir": "C:/Users/Anil/Documents/repos/Claims.Automation/tests",
+        "testDir": "C:/Users/Anil/Documents/repos/PPI-Claims/tests",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -45,7 +45,7 @@
         "timeout": 600000
       },
       {
-        "outputDir": "C:/Users/Anil/Documents/repos/Claims.Automation/test-results",
+        "outputDir": "C:/Users/Anil/Documents/repos/PPI-Claims/test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -53,7 +53,7 @@
         },
         "id": "canada-tests",
         "name": "canada-tests",
-        "testDir": "C:/Users/Anil/Documents/repos/Claims.Automation/tests/orca-ca",
+        "testDir": "C:/Users/Anil/Documents/repos/PPI-Claims/tests/orca-ca",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -61,7 +61,7 @@
         "timeout": 600000
       },
       {
-        "outputDir": "C:/Users/Anil/Documents/repos/Claims.Automation/test-results",
+        "outputDir": "C:/Users/Anil/Documents/repos/PPI-Claims/test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -69,7 +69,7 @@
         },
         "id": "mobile-tests",
         "name": "mobile-tests",
-        "testDir": "C:/Users/Anil/Documents/repos/Claims.Automation/tests",
+        "testDir": "C:/Users/Anil/Documents/repos/PPI-Claims/tests",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -77,7 +77,7 @@
         "timeout": 600000
       },
       {
-        "outputDir": "C:/Users/Anil/Documents/repos/Claims.Automation/test-results",
+        "outputDir": "C:/Users/Anil/Documents/repos/PPI-Claims/test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -85,7 +85,7 @@
         },
         "id": "api-tests",
         "name": "api-tests",
-        "testDir": "C:/Users/Anil/Documents/repos/Claims.Automation/tests",
+        "testDir": "C:/Users/Anil/Documents/repos/PPI-Claims/tests",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -93,7 +93,7 @@
         "timeout": 600000
       },
       {
-        "outputDir": "C:/Users/Anil/Documents/repos/Claims.Automation/test-results",
+        "outputDir": "C:/Users/Anil/Documents/repos/PPI-Claims/test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -101,7 +101,7 @@
         },
         "id": "canada-api-tests",
         "name": "canada-api-tests",
-        "testDir": "C:/Users/Anil/Documents/repos/Claims.Automation/tests/api/canada",
+        "testDir": "C:/Users/Anil/Documents/repos/PPI-Claims/tests/api/canada",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -109,7 +109,7 @@
         "timeout": 600000
       },
       {
-        "outputDir": "C:/Users/Anil/Documents/repos/Claims.Automation/test-results",
+        "outputDir": "C:/Users/Anil/Documents/repos/PPI-Claims/test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -117,7 +117,7 @@
         },
         "id": "unit-tests",
         "name": "unit-tests",
-        "testDir": "C:/Users/Anil/Documents/repos/Claims.Automation/unit-test",
+        "testDir": "C:/Users/Anil/Documents/repos/PPI-Claims/unit-test",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -153,7 +153,7 @@
         null
       ],
       [
-        "C:\\Users\\Anil\\Documents\\repos\\Claims.Automation\\test-results-reporter.ts",
+        "C:\\Users\\Anil\\Documents\\repos\\PPI-Claims\\test-results-reporter.ts",
         null
       ]
     ],
@@ -177,7 +177,7 @@
       "line": 0,
       "specs": [
         {
-          "title": "Orca > Verify user able to regenerate the document EOB and Claim acknowledgement letter",
+          "title": "Orca > Verify preReq for start claim prep",
           "ok": true,
           "tags": [
             "Regression",
@@ -196,101 +196,101 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 61514,
+                  "duration": 81125,
                   "errors": [],
                   "stdout": [
                     {
-                      "text": "2026-10-19 02:51:48 [\u001b[34minfo\u001b[39m] \u001b[34m[date-util.getDateWithSpecificFormat] - Getting formatted date with offset: 1, format: MM/dd/yyyy\u001b[39m\r\n"
+                      "text": "2026-10-22 00:53:51 [\u001b[34minfo\u001b[39m] \u001b[34m[date-util.getDateWithSpecificFormat] - Getting formatted date with offset: 1, format: MM/dd/yyyy\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:51:48 [\u001b[34minfo\u001b[39m] \u001b[34m[date-util.getDateWithSpecificFormat] - Formatted date: 10/20/2026\u001b[39m\r\n"
+                      "text": "2026-10-22 00:53:51 [\u001b[34minfo\u001b[39m] \u001b[34m[date-util.getDateWithSpecificFormat] - Formatted date: 10/23/2026\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:51:48 [\u001b[34minfo\u001b[39m] \u001b[34m[date-util.getDateWithSpecificFormat] - Getting formatted date with offset: 30, format: MM/dd/yyyy\u001b[39m\r\n"
+                      "text": "2026-10-22 00:53:51 [\u001b[34minfo\u001b[39m] \u001b[34m[date-util.getDateWithSpecificFormat] - Getting formatted date with offset: 30, format: MM/dd/yyyy\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:51:48 [\u001b[34minfo\u001b[39m] \u001b[34m[date-util.getDateWithSpecificFormat] - Formatted date: 11/18/2026\u001b[39m\r\n"
+                      "text": "2026-10-22 00:53:51 [\u001b[34minfo\u001b[39m] \u001b[34m[date-util.getDateWithSpecificFormat] - Formatted date: 11/21/2026\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:51:48 [\u001b[34minfo\u001b[39m] \u001b[34m[NavigationHelper.openBrandWebPage] - Opening brand web page at https://orca.qas.petpartners.com\u001b[39m\r\n"
+                      "text": "2026-10-22 00:53:52 [\u001b[34minfo\u001b[39m] \u001b[34m[NavigationHelper.openBrandWebPage] - Opening brand web page at https://orca.qas.petpartners.com\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:51:51 [\u001b[34minfo\u001b[39m] \u001b[34m[NavigationHelper.openBrandWebPage] - Successfully opened brand web page at https://orca.qas.petpartners.com\u001b[39m\r\n"
+                      "text": "2026-10-22 00:53:55 [\u001b[34minfo\u001b[39m] \u001b[34m[NavigationHelper.openBrandWebPage] - Successfully opened brand web page at https://orca.qas.petpartners.com\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:51:51 [\u001b[34minfo\u001b[39m] \u001b[34m[login-orca-util.loginToOrca] - Logging in as admin (MFA enabled: false)\u001b[39m\r\n"
+                      "text": "2026-10-22 00:53:55 [\u001b[34minfo\u001b[39m] \u001b[34m[login-orca-util.loginToOrca] - Logging in as admin (MFA enabled: false)\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:51:51 [\u001b[34minfo\u001b[39m] \u001b[34m[LoginPage.iAmLoggedUsingRole] Login using role: admin\u001b[39m\r\n"
+                      "text": "2026-10-22 00:53:55 [\u001b[34minfo\u001b[39m] \u001b[34m[LoginPage.iAmLoggedUsingRole] Login using role: admin\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:51:52 [\u001b[34minfo\u001b[39m] \u001b[34m[TextBox>setText] Set text in element: locator('#Email'), value: [orcaautomationtesting@petpartners.com]\u001b[39m\r\n"
+                      "text": "2026-10-22 00:53:55 [\u001b[34minfo\u001b[39m] \u001b[34m[TextBox>setText] Set text in element: locator('#Email'), value: [orcaautomationtesting@petpartners.com]\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:51:52 [\u001b[34minfo\u001b[39m] \u001b[34m[TextBox>setText] Set text in element: locator('#Password'), value: [Welcome2023]\u001b[39m\r\n"
+                      "text": "2026-10-22 00:53:55 [\u001b[34minfo\u001b[39m] \u001b[34m[TextBox>setText] Set text in element: locator('#Password'), value: [Welcome2023]\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:51:52 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//button[text()=\"Login\"]')\u001b[39m\r\n"
+                      "text": "2026-10-22 00:53:55 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//button[text()=\"Login\"]')\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:03 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase.clickAndWait] networkidle state reached after click\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:02 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase.clickAndWait] networkidle state reached after click\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:03 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:02 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:04 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:02 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:04 [\u001b[34minfo\u001b[39m] \u001b[34m[MenuTopSection>clickOnHamburgerIcon] - Opening Hamburger Menu\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:03 [\u001b[34minfo\u001b[39m] \u001b[34m[MenuTopSection>clickOnHamburgerIcon] - Opening Hamburger Menu\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:04 [\u001b[34minfo\u001b[39m] \u001b[34m[MenuTopSection>click Legacy Hamburger Menu] - Using click for legacy dropdown\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:03 [\u001b[34minfo\u001b[39m] \u001b[34m[MenuTopSection>click Legacy Hamburger Menu] - Using click for legacy dropdown\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:04 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:03 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:04 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>click] Clicking element: locator('//a[(contains(@id,\\'nav-dropdown\\') or @ngbdropdownitem or contains(@class,\\'dropdown-item\\')) and normalize-space(.)=\\'Claims\\']')\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:03 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>click] Clicking element: locator('//a[(contains(@id,\\'nav-dropdown\\') or @ngbdropdownitem or contains(@class,\\'dropdown-item\\')) and normalize-space(.)=\\'Claims\\']')\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:07 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//a[contains(text(),\\'Assigned\\')]')\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:05 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//a[contains(text(),\\'Assigned\\')]')\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:09 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase.clickAndWait] networkidle state reached after click\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:10 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase.clickAndWait] networkidle state reached after click\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:09 [\u001b[34minfo\u001b[39m] \u001b[34m[Table>clickFirstRow] Clicking first row of table\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:10 [\u001b[34minfo\u001b[39m] \u001b[34m[Table>clickFirstRow] Clicking first row of table\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:32 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>waitForDisappear] Element has disappeared: locator('//a[contains(., \\'Assigned\\')]/parent::*/parent::*/parent::*//table[@class=\\'table table-striped table-bordered tablesorter\\']')\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:53 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>waitForDisappear] Element has disappeared: locator('//a[contains(., \\'Assigned\\')]/parent::*/parent::*/parent::*//table[@class=\\'table table-striped table-bordered tablesorter\\']')\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:32 [\u001b[34minfo\u001b[39m] \u001b[34m[ClaimDetailPage>getNameOnClaimsDetails] Getting name on claims details\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:53 [\u001b[34minfo\u001b[39m] \u001b[34m[ClaimDetailPage>getNameOnClaimsDetails] Getting name on claims details\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:32 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>getText] Got text from element: locator('//div[@id=\\'claim-details\\']//address/strong'), value: [Igor Litinsky]\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:54 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>getText] Got text from element: locator('//div[@id=\\'claim-details\\']//address/strong'), value: [Igor Litinsky]\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:32 [\u001b[34minfo\u001b[39m] \u001b[34m[ClaimDetailPage>getNameOnClaimsDetails] Retrieving text from nameOnClaimsDetailsLabel Igor Litinsky\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:54 [\u001b[34minfo\u001b[39m] \u001b[34m[ClaimDetailPage>getNameOnClaimsDetails] Retrieving text from nameOnClaimsDetailsLabel Igor Litinsky\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:32 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>getText] Got text from element: locator('//div[@id=\\'claim-details\\']//address/strong'), value: [Igor Litinsky]\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:54 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>getText] Got text from element: locator('//div[@id=\\'claim-details\\']//address/strong'), value: [Igor Litinsky]\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:32 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//div[@class=\\'row-fluid\\'][1]//*[contains(text(),\\'Return to Policy\\')]')\u001b[39m\r\n"
+                      "text": "2026-10-22 00:54:54 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//div[@class=\\'row-fluid\\'][1]//*[contains(text(),\\'Return to Policy\\')]')\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:44 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase.clickAndWait] networkidle state reached after click\u001b[39m\r\n"
+                      "text": "2026-10-22 00:55:07 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase.clickAndWait] networkidle state reached after click\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:44 [\u001b[34minfo\u001b[39m] \u001b[34m[TabsPolicyDetailSection>clickTabOption] tab option: Customer(s)\u001b[39m\r\n"
+                      "text": "2026-10-22 00:55:07 [\u001b[34minfo\u001b[39m] \u001b[34m[TabsPolicyDetailSection>clickTabOption] tab option: Customer(s)\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:45 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>click] Clicking element: locator('//a[@title=\"Customer(s)\"]')\u001b[39m\r\n"
+                      "text": "2026-10-22 00:55:07 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>click] Clicking element: locator('//a[@title=\"Customer(s)\"]')\u001b[39m\r\n"
                     },
                     {
-                      "text": "2026-10-19 02:52:45 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>waitWhileControlDisappears] Waiting for element to disappear: locator('//div[@class=\\'ajax-load\\' and @id]')\u001b[39m\r\n"
+                      "text": "2026-10-22 00:55:07 [\u001b[34minfo\u001b[39m] \u001b[34m[ControlBase>waitWhileControlDisappears] Waiting for element to disappear: locator('//div[@class=\\'ajax-load\\' and @id]')\u001b[39m\r\n"
                     }
                   ],
                   "stderr": [],
@@ -298,18 +298,18 @@
                   "steps": [
                     {
                       "title": "Step 1: Login to Orca and navigate to claims home page",
-                      "duration": 18570
+                      "duration": 13886
                     },
                     {
                       "title": "Step 2: Click on start claim prep",
-                      "duration": 24958
+                      "duration": 47840
                     },
                     {
                       "title": "Step 4: Create new claim with default settings",
-                      "duration": 15960
+                      "duration": 17073
                     }
                   ],
-                  "startTime": "2026-10-18T21:21:47.212Z",
+                  "startTime": "2026-10-21T19:23:50.659Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -317,7 +317,7 @@
               "status": "expected"
             }
           ],
-          "id": "680dd7ccf5850cfb9138-727e9cd88a35f0516f29",
+          "id": "680dd7ccf5850cfb9138-09dc1260301560359d25",
           "file": "tests/orca/claims/start-claim-prep.spec.ts",
           "line": 9,
           "column": 5
@@ -327,8 +327,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-18T21:21:38.390Z",
-    "duration": 72384.458,
+    "startTime": "2026-10-21T19:23:45.254Z",
+    "duration": 87915.734,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,

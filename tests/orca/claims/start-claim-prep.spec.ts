@@ -6,7 +6,7 @@ import { BrandUrl } from '@utils/brand-util';
 import { getDateWithSpecificFormat } from '@utils/date-util';
 import { loginToOrca } from '@utils/login-orca-util';
 
-test('Orca > Verify user able to regenerate the document EOB and Claim acknowledgement letter', { tag: ['@Regression', '@Orca', '@ClaimsTest'] }, async ({ page, navigation }) => {
+test('Orca > Verify preReq for start claim prep', { tag: ['@Regression', '@Orca', '@ClaimsTest'] }, async ({ page, navigation }) => {
     let orca: OrcaPageManager;
     let policy_id: string;
     let tomorrow_date: string;

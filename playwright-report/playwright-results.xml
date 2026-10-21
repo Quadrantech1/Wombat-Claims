@@ -1,38 +1,38 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="72.384458">
-<testsuite name="tests\orca\claims\start-claim-prep.spec.ts" timestamp="2026-10-18T21:21:43.351Z" hostname="main-tests" tests="1" failures="0" skipped="0" time="61.514" errors="0">
-<testcase name="Orca &gt; Verify user able to regenerate the document EOB and Claim acknowledgement letter" classname="tests\orca\claims\start-claim-prep.spec.ts" time="61.514">
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="87.915734">
+<testsuite name="tests\orca\claims\start-claim-prep.spec.ts" timestamp="2026-10-21T19:23:47.434Z" hostname="main-tests" tests="1" failures="0" skipped="0" time="81.125" errors="0">
+<testcase name="Orca &gt; Verify preReq for start claim prep" classname="tests\orca\claims\start-claim-prep.spec.ts" time="81.125">
 <system-out>
-<![CDATA[2026-10-19 02:51:48 [[34minfo[39m] [34m[date-util.getDateWithSpecificFormat] - Getting formatted date with offset: 1, format: MM/dd/yyyy[39m
-2026-10-19 02:51:48 [[34minfo[39m] [34m[date-util.getDateWithSpecificFormat] - Formatted date: 10/20/2026[39m
-2026-10-19 02:51:48 [[34minfo[39m] [34m[date-util.getDateWithSpecificFormat] - Getting formatted date with offset: 30, format: MM/dd/yyyy[39m
-2026-10-19 02:51:48 [[34minfo[39m] [34m[date-util.getDateWithSpecificFormat] - Formatted date: 11/18/2026[39m
-2026-10-19 02:51:48 [[34minfo[39m] [34m[NavigationHelper.openBrandWebPage] - Opening brand web page at https://orca.qas.petpartners.com[39m
-2026-10-19 02:51:51 [[34minfo[39m] [34m[NavigationHelper.openBrandWebPage] - Successfully opened brand web page at https://orca.qas.petpartners.com[39m
-2026-10-19 02:51:51 [[34minfo[39m] [34m[login-orca-util.loginToOrca] - Logging in as admin (MFA enabled: false)[39m
-2026-10-19 02:51:51 [[34minfo[39m] [34m[LoginPage.iAmLoggedUsingRole] Login using role: admin[39m
-2026-10-19 02:51:52 [[34minfo[39m] [34m[TextBox>setText] Set text in element: locator('#Email'), value: [orcaautomationtesting@petpartners.com][39m
-2026-10-19 02:51:52 [[34minfo[39m] [34m[TextBox>setText] Set text in element: locator('#Password'), value: [Welcome2023][39m
-2026-10-19 02:51:52 [[34minfo[39m] [34m[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//button[text()="Login"]')[39m
-2026-10-19 02:52:03 [[34minfo[39m] [34m[ControlBase.clickAndWait] networkidle state reached after click[39m
-2026-10-19 02:52:03 [[34minfo[39m] [34m[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')[39m
-2026-10-19 02:52:04 [[34minfo[39m] [34m[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')[39m
-2026-10-19 02:52:04 [[34minfo[39m] [34m[MenuTopSection>clickOnHamburgerIcon] - Opening Hamburger Menu[39m
-2026-10-19 02:52:04 [[34minfo[39m] [34m[MenuTopSection>click Legacy Hamburger Menu] - Using click for legacy dropdown[39m
-2026-10-19 02:52:04 [[34minfo[39m] [34m[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')[39m
-2026-10-19 02:52:04 [[34minfo[39m] [34m[ControlBase>click] Clicking element: locator('//a[(contains(@id,\'nav-dropdown\') or @ngbdropdownitem or contains(@class,\'dropdown-item\')) and normalize-space(.)=\'Claims\']')[39m
-2026-10-19 02:52:07 [[34minfo[39m] [34m[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//a[contains(text(),\'Assigned\')]')[39m
-2026-10-19 02:52:09 [[34minfo[39m] [34m[ControlBase.clickAndWait] networkidle state reached after click[39m
-2026-10-19 02:52:09 [[34minfo[39m] [34m[Table>clickFirstRow] Clicking first row of table[39m
-2026-10-19 02:52:32 [[34minfo[39m] [34m[ControlBase>waitForDisappear] Element has disappeared: locator('//a[contains(., \'Assigned\')]/parent::*/parent::*/parent::*//table[@class=\'table table-striped table-bordered tablesorter\']')[39m
-2026-10-19 02:52:32 [[34minfo[39m] [34m[ClaimDetailPage>getNameOnClaimsDetails] Getting name on claims details[39m
-2026-10-19 02:52:32 [[34minfo[39m] [34m[ControlBase>getText] Got text from element: locator('//div[@id=\'claim-details\']//address/strong'), value: [Igor Litinsky][39m
-2026-10-19 02:52:32 [[34minfo[39m] [34m[ClaimDetailPage>getNameOnClaimsDetails] Retrieving text from nameOnClaimsDetailsLabel Igor Litinsky[39m
-2026-10-19 02:52:32 [[34minfo[39m] [34m[ControlBase>getText] Got text from element: locator('//div[@id=\'claim-details\']//address/strong'), value: [Igor Litinsky][39m
-2026-10-19 02:52:32 [[34minfo[39m] [34m[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//div[@class=\'row-fluid\'][1]//*[contains(text(),\'Return to Policy\')]')[39m
-2026-10-19 02:52:44 [[34minfo[39m] [34m[ControlBase.clickAndWait] networkidle state reached after click[39m
-2026-10-19 02:52:44 [[34minfo[39m] [34m[TabsPolicyDetailSection>clickTabOption] tab option: Customer(s)[39m
-2026-10-19 02:52:45 [[34minfo[39m] [34m[ControlBase>click] Clicking element: locator('//a[@title="Customer(s)"]')[39m
-2026-10-19 02:52:45 [[34minfo[39m] [34m[ControlBase>waitWhileControlDisappears] Waiting for element to disappear: locator('//div[@class=\'ajax-load\' and @id]')[39m
+<![CDATA[2026-10-22 00:53:51 [[34minfo[39m] [34m[date-util.getDateWithSpecificFormat] - Getting formatted date with offset: 1, format: MM/dd/yyyy[39m
+2026-10-22 00:53:51 [[34minfo[39m] [34m[date-util.getDateWithSpecificFormat] - Formatted date: 10/23/2026[39m
+2026-10-22 00:53:51 [[34minfo[39m] [34m[date-util.getDateWithSpecificFormat] - Getting formatted date with offset: 30, format: MM/dd/yyyy[39m
+2026-10-22 00:53:51 [[34minfo[39m] [34m[date-util.getDateWithSpecificFormat] - Formatted date: 11/21/2026[39m
+2026-10-22 00:53:52 [[34minfo[39m] [34m[NavigationHelper.openBrandWebPage] - Opening brand web page at https://orca.qas.petpartners.com[39m
+2026-10-22 00:53:55 [[34minfo[39m] [34m[NavigationHelper.openBrandWebPage] - Successfully opened brand web page at https://orca.qas.petpartners.com[39m
+2026-10-22 00:53:55 [[34minfo[39m] [34m[login-orca-util.loginToOrca] - Logging in as admin (MFA enabled: false)[39m
+2026-10-22 00:53:55 [[34minfo[39m] [34m[LoginPage.iAmLoggedUsingRole] Login using role: admin[39m
+2026-10-22 00:53:55 [[34minfo[39m] [34m[TextBox>setText] Set text in element: locator('#Email'), value: [orcaautomationtesting@petpartners.com][39m
+2026-10-22 00:53:55 [[34minfo[39m] [34m[TextBox>setText] Set text in element: locator('#Password'), value: [Welcome2023][39m
+2026-10-22 00:53:55 [[34minfo[39m] [34m[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//button[text()="Login"]')[39m
+2026-10-22 00:54:02 [[34minfo[39m] [34m[ControlBase.clickAndWait] networkidle state reached after click[39m
+2026-10-22 00:54:02 [[34minfo[39m] [34m[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')[39m
+2026-10-22 00:54:02 [[34minfo[39m] [34m[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')[39m
+2026-10-22 00:54:03 [[34minfo[39m] [34m[MenuTopSection>clickOnHamburgerIcon] - Opening Hamburger Menu[39m
+2026-10-22 00:54:03 [[34minfo[39m] [34m[MenuTopSection>click Legacy Hamburger Menu] - Using click for legacy dropdown[39m
+2026-10-22 00:54:03 [[34minfo[39m] [34m[ControlBase>click] Clicking element: locator('#orca-nav-dropdown-a, #navbar-dropdown-menu')[39m
+2026-10-22 00:54:03 [[34minfo[39m] [34m[ControlBase>click] Clicking element: locator('//a[(contains(@id,\'nav-dropdown\') or @ngbdropdownitem or contains(@class,\'dropdown-item\')) and normalize-space(.)=\'Claims\']')[39m
+2026-10-22 00:54:05 [[34minfo[39m] [34m[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//a[contains(text(),\'Assigned\')]')[39m
+2026-10-22 00:54:10 [[34minfo[39m] [34m[ControlBase.clickAndWait] networkidle state reached after click[39m
+2026-10-22 00:54:10 [[34minfo[39m] [34m[Table>clickFirstRow] Clicking first row of table[39m
+2026-10-22 00:54:53 [[34minfo[39m] [34m[ControlBase>waitForDisappear] Element has disappeared: locator('//a[contains(., \'Assigned\')]/parent::*/parent::*/parent::*//table[@class=\'table table-striped table-bordered tablesorter\']')[39m
+2026-10-22 00:54:53 [[34minfo[39m] [34m[ClaimDetailPage>getNameOnClaimsDetails] Getting name on claims details[39m
+2026-10-22 00:54:54 [[34minfo[39m] [34m[ControlBase>getText] Got text from element: locator('//div[@id=\'claim-details\']//address/strong'), value: [Igor Litinsky][39m
+2026-10-22 00:54:54 [[34minfo[39m] [34m[ClaimDetailPage>getNameOnClaimsDetails] Retrieving text from nameOnClaimsDetailsLabel Igor Litinsky[39m
+2026-10-22 00:54:54 [[34minfo[39m] [34m[ControlBase>getText] Got text from element: locator('//div[@id=\'claim-details\']//address/strong'), value: [Igor Litinsky][39m
+2026-10-22 00:54:54 [[34minfo[39m] [34m[ControlBase.clickAndWait] Clicking element and waiting for networkidle: locator('//div[@class=\'row-fluid\'][1]//*[contains(text(),\'Return to Policy\')]')[39m
+2026-10-22 00:55:07 [[34minfo[39m] [34m[ControlBase.clickAndWait] networkidle state reached after click[39m
+2026-10-22 00:55:07 [[34minfo[39m] [34m[TabsPolicyDetailSection>clickTabOption] tab option: Customer(s)[39m
+2026-10-22 00:55:07 [[34minfo[39m] [34m[ControlBase>click] Clicking element: locator('//a[@title="Customer(s)"]')[39m
+2026-10-22 00:55:07 [[34minfo[39m] [34m[ControlBase>waitWhileControlDisappears] Waiting for element to disappear: locator('//div[@class=\'ajax-load\' and @id]')[39m
 ]]>
 </system-out>
 </testcase>

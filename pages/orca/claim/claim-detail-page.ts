@@ -63,6 +63,7 @@ export class ClaimDetailPage extends BasePage {
 
   tabsClaimDetailSection = new TabsClaimDetailSection(this.page);
   adjusterNoteTextBoxFrame = new TextBox(this.page, '//body[@data-id="adjuster-note"]');
+  nameOnClaimsDetailsLabel = new Label(this.page, "//div[@id='claim-details']//address/strong");
 
   //labels
   statusLabel = new Label(this.page, "//div/strong[text()='Status']/parent::*/parent::*/div[@class='controls']");
@@ -71,7 +72,12 @@ export class ClaimDetailPage extends BasePage {
   partnerLabel = new Label(this.page, "//div/strong[text()='Partner']/parent::*/parent::*/div[@class='controls']");
   policyHolderAddressLabel = new Label(this.page, "//div[@id='claim-details']//address");
   prop103IndicatorLabel = new Label(this.page, "//*[text()[contains(normalize-space(.),'filed under Prop103')]]");
-  nameOnClaimsDetailsLabel = new Label(this.page, "//div[@id='claim-details']//address/strong");
+
+    async getNameOnClaimsDetails(): Promise<String> {
+    logger.info("[ClaimDetailPage>getNameOnClaimsDetails] Getting name on claims details");
+    logger.info("[ClaimDetailPage>getNameOnClaimsDetails] Retrieving text from nameOnClaimsDetailsLabel " + await this.nameOnClaimsDetailsLabel.getText());
+    return await this.nameOnClaimsDetailsLabel.getText();
+  }
   // Alert
   alertSection = new AlertSection(this.page);
 
@@ -87,12 +93,6 @@ export class ClaimDetailPage extends BasePage {
     await this.submitToProcessingButton.click();
     await this.alertSection.verifySuccessAlertText("Successfully updated 1 claims to claim status");
     logger.info("[ClaimDetailPage>createClaimDefault] Claim created successfully");
-  }
-
-  async getNameOnClaimsDetails(): Promise<String> {
-    logger.info("[ClaimDetailPage>getNameOnClaimsDetails] Getting name on claims details");
-    logger.info("[ClaimDetailPage>getNameOnClaimsDetails] Retrieving text from nameOnClaimsDetailsLabel " + await this.nameOnClaimsDetailsLabel.getText());
-    return await this.nameOnClaimsDetailsLabel.getText();
   }
 
   /**
