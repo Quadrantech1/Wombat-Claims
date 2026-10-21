@@ -1,0 +1,27 @@
+{
+  "intro": {
+    "value": 30.17,
+    "annual_benefit": "$1000",
+    "limitSpeciesFactor": 1
+  },
+  "level1": {
+    "value": 30.17,
+    "annual_benefit": "$2500",
+    "limitSpeciesFactor": 2.17998
+  },
+  "level2": {
+    "value": 30.17,
+    "annual_benefit": "$5000",
+    "limitSpeciesFactor": 3.598607
+  },
+  "level3": {
+    "value": 30.17,
+    "annual_benefit": "$10000",
+    "limitSpeciesFactor": 5.676499
+  },
+  "level4": {
+    "value": 30.17,
+    "annual_benefit": "Unlimited",
+    "limitSpeciesFactor": 10.473317
+  }
+}
