@@ -1,0 +1,41 @@
+{
+  "name": "ipg-automation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "commonjs",
+  "license": "ISC",
+  "dependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "mailosaur": "^8.8.1",
+    "mssql": "^11.0.1",
+    "pdf-parse": "^1.1.1",
+    "winston": "^3.17.0",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^9.8.0",
+    "@playwright/test": "^1.63.0",
+    "@types/mssql": "^9.1.7",
+    "@types/node": "^22.15.29",
+    "@types/pdf-parse": "^1.1.5",
+    "allure-commandline": "^2.34.1",
+    "allure-playwright": "^3.3.0",
+    "dotenv": "^16.4.7",
+    "stripe": "^18.3.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  },
+  "scripts": {
+    "test": "ts-node ./test-runner.ts",
+    "headed": "ts-node ./test-runner.ts headed=true",
+    "list:tests": "ts-node ./test-runner.ts listTests=true",
+    "ui": "ts-node ./test-runner.ts ui=true",
+    "debug": "ts-node ./test-runner.ts debug=true",
+    "rerun:failed": "ts-node ./test-runner.ts lastFailed=true",
+    "update:snapshots": "ts-node ./test-runner.ts updateSnapshots=true",
+    "precommit": "ts-node ./test-runner.ts tag=@PreCommit env=local workers=4",
+    "report": "npx playwright show-report playwright-report/html-report",
+    "regression:report": "npx playwright show-report regression-report/playwright-report/html-report",
+    "typecheck": "tsc --noEmit"
+  }
+}

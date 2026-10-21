@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  ipg-automation:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ipg-automation-tests
+    shm_size: '3gb'
+    environment:
+      - TAG=${TAG:-@Smoke}
+      - ENV=${ENV:-qas}
+      - WORKERS=${WORKERS:-1}
+      - VM_NUMBER=${VM_NUMBER:-0}
+      - GREEN_BLUE=${GREEN_BLUE:-live}
+      - TEST_PROJECT=${TEST_PROJECT:-}
+
+    volumes:
+      - ./docker-report/:/tmp/report/
+
+    networks:
+      - automation-network
+
+networks:
+  automation-network:
+    driver: bridge
