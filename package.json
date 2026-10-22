@@ -1,9 +1,9 @@
 {
-  "name": "ipg-automation",
+  "name": "claims-playwright-framework",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "type": "commonjs",
-  "license": "ISC",
+  "description": "Playwright automation framework for claims QA",
   "dependencies": {
     "@axe-core/playwright": "^4.10.2",
     "mailosaur": "^8.8.1",
@@ -22,11 +22,16 @@
     "allure-playwright": "^3.3.0",
     "dotenv": "^16.4.7",
     "stripe": "^18.3.0",
+    "tesseract.js": "^6.0.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.8.3"
   },
   "scripts": {
     "test": "ts-node ./test-runner.ts",
+    "test:online-provider": "playwright test tests/onlineprovider2-direct-validation.spec.ts",
+    "test:auth-setup": "playwright test tests/authsetup.spec.ts",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
     "headed": "ts-node ./test-runner.ts headed=true",
     "list:tests": "ts-node ./test-runner.ts listTests=true",
     "ui": "ts-node ./test-runner.ts ui=true",
@@ -36,6 +41,7 @@
     "precommit": "ts-node ./test-runner.ts tag=@PreCommit env=local workers=4",
     "report": "npx playwright show-report playwright-report/html-report",
     "regression:report": "npx playwright show-report regression-report/playwright-report/html-report",
+    "install:browsers": "playwright install chromium",
     "typecheck": "tsc --noEmit"
   }
 }

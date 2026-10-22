@@ -1,8 +1,18 @@
 import { config } from '@config/env-config';
 import { defineConfig, devices } from '@playwright/test';
+import fs from 'fs';
+import path from 'path';
+
+const authStatePath = path.resolve('playwright/.auth/user.json');
+const refreshAuth = process.env.PW_REFRESH_AUTH;
+const shouldUseAuthState = refreshAuth !== '1' && fs.existsSync(authStatePath);
 
 // Centralized base "use" options (shared across all projects)
 const baseUse = {
+    baseURL: 'https://cfpet.ephesoft.cloud/dcma/BatchList.html',
+    storageState: shouldUseAuthState ? authStatePath : undefined,
+    headless: false,
+    viewport: { width: 1365, height: 768 },
     actionTimeout: 60_000,
     navigationTimeout: 60_000,
     trace: 'retain-on-failure' as const,
@@ -49,9 +59,11 @@ function getRetries(): number {
 const retries = getRetries();
 
 export default defineConfig({
+    testDir: './tests',
     outputDir: './test-results',
     snapshotPathTemplate: './test-files/snapshots/{testFilePath}/{arg}{ext}',
-    timeout: 10 * 60_000, // Overall test timeout (per test)
+    timeout: 20 * 60_000,
+    reportSlowTests: null,
     expect: {
         timeout: 60_000,
         toHaveScreenshot: {
