@@ -4,10 +4,10 @@ import { Link } from '@controls/link';
 import { Select } from '@controls/select';
 import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
-import { AlertSection } from '../common-section/alert-section';
-import { TabsPetDetailSection } from './tabs-pet-detail-section';
+import { AlertPanel } from '../common-section/alert-section';
+import { TabsPetDetailPanel } from './tabs-pet-detail-section';
 
-export class PetDetailPage extends BasePage {
+export class PetDetailScreen extends BasePage {
 
   petDetailLabel = new Label(this.page, "//h2[text()='Pet Detail']");
 
@@ -30,8 +30,8 @@ export class PetDetailPage extends BasePage {
   viewMcLeadDetailButton = new Link(this.page, "//a[contains(.,'View McLead Detail')]");
 
   // Alert
-  alertSection = new AlertSection(this.page);
+  alertSection = new AlertPanel(this.page);
 
   // Tab section
-  tabsPetDetailSection = new TabsPetDetailSection(this.page);
+  tabsPetDetailSection = new TabsPetDetailPanel(this.page);
 }

@@ -5,9 +5,9 @@ import { TextBox } from '@controls/textbox';
 import { VetData } from '@data/orca/vet-data';
 import { BasePage } from '@pages/base-page';
 import { expect } from '@playwright/test';
-import { AlertSection } from '../common-section/alert-section';
+import { AlertPanel } from '../common-section/alert-section';
 
-export class VetDetailsPage extends BasePage {
+export class VetDetailsScreen extends BasePage {
     // TextBoxes
     vetNameTextBox = new TextBox(this.page, '#VetDto_Name');
     address1TextBox = new TextBox(this.page, '#VetDto_Address1');
@@ -31,9 +31,9 @@ export class VetDetailsPage extends BasePage {
 
     // Labels
     overviewSection = new Label(this.page, "//*[text()='Overview']");
-    alertSection = new AlertSection(this.page);
+    alertSection = new AlertPanel(this.page);
 
-    async verifyDataInTheForm(expectedVetData: Partial<VetData>): Promise<void> {
+    async confirmFormData(expectedVetData: Partial<VetData>): Promise<void> {
         if (expectedVetData.vetName) await expect.soft(await this.vetNameTextBox.getAttribute("value")).toBe(expectedVetData.vetName);
         if (expectedVetData.address1) await expect.soft(await this.address1TextBox.getAttribute("value")).toBe(expectedVetData.address1);
         if (expectedVetData.address2) await expect.soft(await this.address2TextBox.getAttribute("value")).toBe(expectedVetData.address2);
@@ -47,7 +47,7 @@ export class VetDetailsPage extends BasePage {
         if (expectedVetData.prefDeliveryMethod) await expect.soft(await this.prefDeliveryMethodDropDown.getTextOptionSelected()).toBe(expectedVetData.prefDeliveryMethod);
     }
 
-    async verifyAllControlsAreDisplayed(): Promise<void> {
+    async confirmAllControlsShown(): Promise<void> {
         await expect.soft(this.vetNameTextBox.getLocator()).toBeVisible();
         await expect.soft(this.address1TextBox.getLocator()).toBeVisible();
         await expect.soft(this.address2TextBox.getLocator()).toBeVisible();

@@ -21,7 +21,7 @@ export enum HamburgerMenuOptions {
 
 }
 
-export class MenuTopSection extends BasePage {
+export class MenuTopPanel extends BasePage {
 
   //Tabs
   claimsAngularTab = new Button(this.page, "//nav[@class='top-nav layout__container']/*/li/a[contains(text(),' Claims ')]");
@@ -37,37 +37,37 @@ export class MenuTopSection extends BasePage {
   searchPoliciesTextBoxAngular = new TextBox(this.page, "//input[@placeholder='Search Policies']");
   goButtonAngular = new Button(this.page, "//input[@placeholder='Search Policies']/../button");
 
-  async searchPolicy(policy: string | number): Promise<void> {
+  async lookupPolicy(policy: string | number): Promise<void> {
     logger.info("MenuTopSection>searchPolicy > search policy: " + policy);
     await this.selectSearchPolicyOrClaim.selectOption('Policy');
     await this.searchPoliciesTextBox.setText(String(policy));
     await this.goButton.clickAndWait();
   }
 
-  async searchPolicyAngular(policy: string | number): Promise<void> {
+  async lookupPolicyAngular(policy: string | number): Promise<void> {
     logger.info("[MenuTopSection>searchPolicyAngular] > search policy: " + policy);
     await this.searchPoliciesTextBoxAngular.setText(String(policy));
     await this.goButtonAngular.clickAndWait();
   }
 
-  async searchClaim(claim: string | number): Promise<void> {
+  async lookupClaim(claim: string | number): Promise<void> {
     logger.info("[MenuTopSection>searchClaim] > search claim: " + claim);
     await this.selectSearchPolicyOrClaim.selectOption('Claim');
     await this.searchPoliciesTextBox.setText(String(claim));
     await this.goButton.clickAndWait();
   }
 
-  async clickMenuOption(option: HamburgerMenuOptions): Promise<void> {
+  async chooseMenuEntry(option: HamburgerMenuOptions): Promise<void> {
     logger.info("[MenuTopSection>clickMenuOption] - Clicking on Menu Option: " + option);
     await this.page.waitForLoadState('load');
     if (await this.hamburgerMenuTabs.isDisplayed()) {
-      await this.clickMenuOptionUsingHamburgerIcon(option);
+      await this.chooseEntryFromHamburger(option);
     } else {
-      await this.clickMenuOptionUsingTopMenu(option);
+      await this.chooseEntryFromTopMenu(option);
     }
   }
 
-  async clickMenuOptionUsingTopMenu(option: HamburgerMenuOptions): Promise<void> {
+  async chooseEntryFromTopMenu(option: HamburgerMenuOptions): Promise<void> {
     logger.info(`[MenuTopSection>clickMenuOptionUsingTopMenu] - Clicking on Top Menu Option: ${option}`);
 
     const isAngularTopMenu = await this.page.locator('//nav[@class="top-nav layout__container"]').count() > 0;
@@ -83,7 +83,7 @@ export class MenuTopSection extends BasePage {
     await optionMenu.click();
   }
 
-  async clickMenuOptionUsingHamburgerIcon(option: HamburgerMenuOptions): Promise<void> {
+  async chooseEntryFromHamburger(option: HamburgerMenuOptions): Promise<void> {
     logger.info("[MenuTopSection>clickOnHamburgerIcon] - Opening Hamburger Menu");
     await this.page.waitForLoadState('load');
 

@@ -7,7 +7,7 @@ import { logger } from '@utils/logger-util';
 
 /**
  */
-export class AddNewVetModal extends BasePage {
+export class AddNewVetPopup extends BasePage {
     // TextBoxes
     vetNameTextBox = new TextBox(this.page, '#VetDto_Name');
     vetAddressOneTextBox = new TextBox(this.page, '#VetDto_Address1');
@@ -22,7 +22,7 @@ export class AddNewVetModal extends BasePage {
     // Button
     saveButton = new Button(this.page, '#btn-save');
 
-    async fillNewVetForm(vetData?: Partial<VetData>): Promise<void> {
+    async populateNewVetForm(vetData?: Partial<VetData>): Promise<void> {
         const { vetName, address1, city, postalCode, stateProvince, phone, email } = vetData || {};
         logger.info(`Filling out new vet form with Name: ${vetName}, Address1: ${address1}, City: ${city}, Postal Code: ${postalCode}, State/Province: ${stateProvince}, Phone: ${phone}, Email: ${email}`);
         if (vetName) await this.vetNameTextBox.setText(vetName);

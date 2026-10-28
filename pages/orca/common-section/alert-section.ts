@@ -6,7 +6,7 @@ import { logger } from '@utils/logger-util';
 import { timeouts } from '@utils/timeouts-util';
 
 
-export class AlertSection extends BasePage {
+export class AlertPanel extends BasePage {
     defaultAlertLabel = new Label(this.page, "//div[contains(@class,'alert alert-') and not(contains(@class,'info'))]");
     successfullyAlertLabel = new Label(this.page, "//div[@class='alert alert-success']");
     errorAlertLabel = new Label(this.page, "//div[@class='alert alert-error']");
@@ -21,7 +21,7 @@ export class AlertSection extends BasePage {
 
 
 
-    async verifySuccessAlertText(expectedText: string, timeout = timeouts.long): Promise<void> {
+    async confirmSuccessAlertMessage(expectedText: string, timeout = timeouts.long): Promise<void> {
         logger.info(`[AlertSection.verifySuccessAlertText] Verifying success alert text: ${expectedText}`);
         await this.successfullyAlertLabel.waitForVisible(timeout);
         const actualResult = await this.successfullyAlertLabel.getText(timeout);
@@ -32,7 +32,7 @@ export class AlertSection extends BasePage {
             await this.closeButtonSuccessfullyAlert.clickAndWait('load');
         }
     }
-    async verifyWarningAlertText(expectedText: string, timeout = timeouts.long): Promise<void> {
+    async confirmWarningAlertMessage(expectedText: string, timeout = timeouts.long): Promise<void> {
         logger.info(`[AlertSection.verifyWarningAlertText] Verifying warning alert text: ${expectedText}`);
         await this.warningLabel.waitForVisible(timeout);
         const actualResult = await this.warningLabel.getText(timeout);
@@ -40,7 +40,7 @@ export class AlertSection extends BasePage {
         expect(actualResult).toContain(expectedText);
     }
 
-    async getClaimNumberFromSuccessAlert(timeout = timeouts.long): Promise<string> {
+    async extractClaimNumberFromAlert(timeout = timeouts.long): Promise<string> {
         logger.info('[AlertSection.getClaimNumberFromSuccessAlert] - Getting claim number from success alert');
         await this.successfullyAlertLabel.waitForVisible(timeout);
         const currentMessageText = await this.successfullyAlertLabel.getText(timeout);

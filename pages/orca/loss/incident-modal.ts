@@ -7,9 +7,9 @@ import { getDefaultIncidentData, IncidentData } from '@data/orca/incident-data';
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 import { timeouts } from '@utils/timeouts-util';
-import { AlertSection } from '../common-section/alert-section';
+import { AlertPanel } from '../common-section/alert-section';
 
-export class IncidentModal extends BasePage {
+export class IncidentPopup extends BasePage {
 
     createANewIncidentButton = new Button(this.page, "//div/a[@title='Add New Incident']");
     cancelButton = new Button(this.page, "//button[contains(.,'Cancel')]");
@@ -26,15 +26,15 @@ export class IncidentModal extends BasePage {
     detailsTextBox = new TextBox(this.page, "//textarea[@name='Incident.Details']");
 
     // Alert
-    alertSection = new AlertSection(this.page);
+    alertSection = new AlertPanel(this.page);
 
-    public async addIncident(rowNumber: number): Promise<void> {
+    public async attachIncident(rowNumber: number): Promise<void> {
         logger.info(`[IncidentModal.addIncident] Adding incident at row number: ${rowNumber}`);
         await this.incidentTable.clickTableCell(1, rowNumber, 'checkbox');
         await this.saveButton.click();
     }
 
-    public async createIncident(incidentData?: Partial<IncidentData>): Promise<void> {
+    public async raiseIncident(incidentData?: Partial<IncidentData>): Promise<void> {
         const data = { ...getDefaultIncidentData(), ...incidentData };
         logger.info(`[IncidentModal.createIncident] Creating incident with data: ${JSON.stringify(data)}`);
         await this.createANewIncidentButton.waitForVisible();

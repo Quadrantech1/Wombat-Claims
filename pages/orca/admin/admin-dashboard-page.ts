@@ -9,7 +9,7 @@ import { timeouts } from '@utils/timeouts-util';
  * Centralized strongly typed locators for the left navigation admin dashboard & related sections.
  * Based on provided markup snapshot. Uses ids where stable; falls back to text when required.
  */
-export class AdminDashboardPage extends BasePage {
+export class AdminDashboardScreen extends BasePage {
     // --- Admin Section ---
     userManagementLink = new Link(this.page, '#userManagement');
     petManagementLink = new Link(this.page, '#petManagement');
@@ -20,7 +20,7 @@ export class AdminDashboardPage extends BasePage {
      * Returns a Link control for a Functional Area by its visible name (e.g., 'Admin', 'Affiliate').
      * Name must match text exactly as displayed (case sensitive normalization via normalize-space()).
      */
-    functionalAreaLink(tabName: string): Link {
+    areaMenuLink(tabName: string): Link {
         return new Link(this.page, `//a[contains(@href,'functionalAreaId=') and normalize-space()='${tabName}']`);
     }
 
@@ -28,7 +28,7 @@ export class AdminDashboardPage extends BasePage {
      * Returns a Link control for a Role by partial visible text (e.g., 'Administrator', 'Claims Specialist').
      * Performs a contains match to allow flexible role naming.
      */
-    roleLink(roleName: string): Link {
+    roleMenuLink(roleName: string): Link {
         return new Link(this.page, `//a[contains(@href,'roleId=') and contains(normalize-space(),'${roleName}')]`);
     }
 
@@ -70,7 +70,7 @@ export class AdminDashboardPage extends BasePage {
     // --- API Tasks Section ---
     apiTasksLink = new Link(this.page, '#apiTasks');
 
-    async verifyLinksAreVisible(): Promise<void> {
+    async confirmLinksDisplayed(): Promise<void> {
         try {
             logger.info('[AdminDashboardPage.verifyLinksAreVisible] Verifying key links are visible on Admin Dashboard page');
             await expect(this.userManagementLink.getLocator()).toBeVisible({ timeout: timeouts.veryShort });

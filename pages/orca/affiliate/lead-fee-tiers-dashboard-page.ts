@@ -4,7 +4,7 @@ import { Table } from '@controls/table';
 import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 
-export class LeadFeeTiersDashboardPage extends BasePage {
+export class LeadFeeTiersDashboardScreen extends BasePage {
     // Search controls
     searchLeadFeeTierTextBox = new TextBox(this.page, this.page.getByLabel('Search Lead Fee Tier'));
     runSearchButton = new Button(this.page, this.page.getByRole('button', { name: 'Run Search' }));
@@ -18,7 +18,7 @@ export class LeadFeeTiersDashboardPage extends BasePage {
      * Search for a lead fee tier
      * @param searchTerm - The search term to use
      */
-    async searchLeadFeeTier(searchTerm: string): Promise<void> {
+    async lookupLeadFeeTier(searchTerm: string): Promise<void> {
         await this.searchLeadFeeTierTextBox.setText(searchTerm);
         await this.runSearchButton.click();
     }
@@ -27,7 +27,7 @@ export class LeadFeeTiersDashboardPage extends BasePage {
      * Click on a lead fee tier link by tier ID
      * @param leadFeeTierId - The lead fee tier ID to click
      */
-    async clickLeadFeeTierLink(leadFeeTierId: number): Promise<void> {
+    async pressLeadFeeTierLink(leadFeeTierId: number): Promise<void> {
         const link = new Link(this.page, `//a[@href='/Affiliate/LeadFeeTierDetails?leadFeeTierId=${leadFeeTierId}']`);
         await link.click();
     }

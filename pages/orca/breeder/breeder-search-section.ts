@@ -3,7 +3,7 @@ import { Table } from '@controls/table';
 import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 
-export class BreederSearchSection extends BasePage {
+export class BreederSearchPanel extends BasePage {
     // Text Inputs
     lastNameTextBox = new TextBox(this.page, "//input[@id='BreederSearchCriteria_LastName']");
     emailAddressTextBox = new TextBox(this.page, "//input[@id='BreederSearchCriteria_EmailAddress']");

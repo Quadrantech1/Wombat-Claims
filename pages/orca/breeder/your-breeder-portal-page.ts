@@ -4,7 +4,7 @@ import { Table } from '@controls/table';
 import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 
-export class YourBreederPortalPage extends BasePage {
+export class YourBreederPortalScreen extends BasePage {
     // Tables
     coverageGetFormsTable = new Table(this.page, ".rounded_table.full_table.striped_table.datalist");
 

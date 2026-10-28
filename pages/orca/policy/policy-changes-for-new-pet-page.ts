@@ -4,7 +4,7 @@ import { Select } from '@controls/select';
 import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 
-export class PolicyChangesForNewPetPage extends BasePage {
+export class PolicyChangesForNewPetScreen extends BasePage {
     petNameTextBox = new TextBox(this.page, '#Pet_Pet_PetName');
     petDateOfBrithTextBox = new TextBox(this.page, '#Pet_Pet_Dob');
     petBrithMonthSelect = new Select(this.page, '.ui-datepicker-month');

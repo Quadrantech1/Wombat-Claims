@@ -6,7 +6,7 @@ import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 import { timeouts } from '@utils/timeouts-util';
 
-export class AttachmentTabSection extends BasePage {
+export class ClaimAttachmentsTabPanel extends BasePage {
     otherLink = new Link(this.page, "//a[@data-placeholder-id='attachments-other']");
     termLink = new Link(this.page, "//a[contains(@data-placeholder-id,'-attachments')]");
     claimsResultLink = new Link(this.page, "//a[contains(text(),'Claims -')]");
@@ -31,7 +31,7 @@ export class AttachmentTabSection extends BasePage {
      * @returns The href attribute of the PDF link
      * @throws Error if the PDF link is not found
      */
-    async getLinkForClaimPDFByName(nameDocument: string, secondDescription?: string): Promise<string> {
+    async claimPdfLinkNamed(nameDocument: string, secondDescription?: string): Promise<string> {
         let xpath: string;
 
         if (secondDescription) {
@@ -51,7 +51,7 @@ export class AttachmentTabSection extends BasePage {
         return href;
     }
 
-    async getNumberOfElementsOnAttachmentTable(value: string): Promise<number> {
+    async countAttachmentTableEntries(value: string): Promise<number> {
         const elements = await this.page.$$(`//div[contains(text(),'${value}') and @data-source]`);
         return elements.length;
     }
@@ -65,7 +65,7 @@ export class AttachmentTabSection extends BasePage {
      * @returns Promise<boolean> resolves to true when the link is visible
      * @throws Error when link is not visible after one reload attempt
      */
-    async verifyClaimsResultLinkLoaded(): Promise<boolean> {
+    async confirmClaimResultLinkLoaded(): Promise<boolean> {
         await this.page.waitForTimeout(timeouts.polling);
 
         // First attempt

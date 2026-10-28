@@ -1,4 +1,4 @@
-import { TabsPolicyDetailSection } from './tabs-policy-detail-section';
+import { TabsPolicyDetailPanel } from './tabs-policy-detail-section';
 
 import { Button } from '@controls/button';
 import { Label } from '@controls/label';
@@ -8,9 +8,9 @@ import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 import { extractTotalAmount } from '@utils/amounts-util';
 import { logger } from '@utils/logger-util';
-import { AlertSection } from '../common-section/alert-section';
-import { BackDateSection } from './back-date-modal';
-import { MoveClaimDialog } from './move-claim-dialog';
+import { AlertPanel } from '../common-section/alert-section';
+import { BackDatePanel } from './back-date-modal';
+import { MoveClaimPrompt } from './move-claim-dialog';
 
 export enum PolicyActionOptionEnum {
   DoNotRenew = 'Do Not Renew',
@@ -22,7 +22,7 @@ export enum PolicyActionOptionEnum {
   GeneratePolicyTermDocuments = 'Generate Policy Term Documents',
   Reinstate = 'Re-Instate',
 }
-export class PolicyDetailPage extends BasePage {
+export class PolicyDetailScreen extends BasePage {
   // Overview Information Section
   statusSelect = new Select(this.page, "//select[@id='PolicyDetails_Policy_PolicyStatusId']");
   policyStatusLabel = new Label(this.page, "//input[@id='PolicyDetails_Policy_PolicyStatusId']/parent::*");
@@ -45,32 +45,32 @@ export class PolicyDetailPage extends BasePage {
   editPaymentButton = new Button(this.page, "//a[@id='btn-view-pmt-options']");
 
   // Tabs Section
-  tabsPolicyDetailSection = new TabsPolicyDetailSection(this.page);
+  tabsPolicyDetailSection = new TabsPolicyDetailPanel(this.page);
 
   //commons
-  alertSection = new AlertSection(this.page);
-  backDateSection = new BackDateSection(this.page);
-  moveClaimDialog = new MoveClaimDialog(this.page);
+  alertSection = new AlertPanel(this.page);
+  backDateSection = new BackDatePanel(this.page);
+  moveClaimDialog = new MoveClaimPrompt(this.page);
   
   /**
    * Gets the total payment amount including service fee from the policy detail page.
    * Parses text like "Payment amount: $31.55 + $3.00 Service Fee" and returns "$34.55"
    * @returns The total payment amount as a string (e.g., "$34.55")
    */
-  async getPaymentAmount(): Promise<string> {
+  async readPaymentAmount(): Promise<string> {
     const rawText = (await this.paymentAmountLabel.getText()).trim();
     return extractTotalAmount(rawText);
   }
 
 
 
-  public async selectOptionPolicyActions(option: PolicyActionOptionEnum): Promise<void> {
+  public async chooseOptionFromPolicyActions(option: PolicyActionOptionEnum): Promise<void> {
     await this.policyActionButton.click();
     const optionLabel = new Label(this.page, `//a[contains(.,'${option}')]`);
     await optionLabel.click();
   }
 
-  public async getValueFromControl(nameControl: string): Promise<string> {
+  public async readControlValue(nameControl: string): Promise<string> {
     logger.info('[PolicyDetailPage.getValueFromControl] Getting value from control: ' + nameControl);
     if (
       nameControl.includes('Policy No') ||

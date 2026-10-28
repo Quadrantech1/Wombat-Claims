@@ -4,7 +4,7 @@ import { Table } from '@controls/table';
 import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 
-export class AffiliateDashboardPage extends BasePage {
+export class AffiliateDashboardScreen extends BasePage {
     // Search controls
     affiliateNameSearchTextBox = new TextBox(this.page, this.page.locator('#affiliate-search-name'));
     runSearchButton = new Button(this.page, "#affiliate-search-submit");

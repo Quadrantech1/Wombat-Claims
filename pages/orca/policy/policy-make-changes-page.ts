@@ -8,10 +8,10 @@ import { Table } from '@controls/table';
 import { TextBox } from '@controls/textbox';
 import { MakeChangesPetDetails } from '@data/orca/make-changes-pet-details-data';
 import { BasePage } from '@pages/base-page';
-import { LoadingSection } from '@pages/orca/common-section/loading-section';
+import { LoadingPanel } from '@pages/orca/common-section/loading-section';
 import { logger } from '@utils/logger-util';
 
-export class PolicyMakeChangesPage extends BasePage {
+export class PolicyMakeChangesScreen extends BasePage {
 
     addPetButton = new Button(this.page, "//a[text()=' Add Pet ']");
     existingPetButton = new Button(this.page, "//a[normalize-space()='Existing Pet']");
@@ -91,11 +91,11 @@ export class PolicyMakeChangesPage extends BasePage {
     accidentCareDefenderPlusCheckbox = new Checkbox(this.page, "//*[contains(.,'DefenderPlus')]/parent::*/input[contains(@id,'_18_')]");
     refreshPremiumsButton = new Button(this.page, "#btn-refresh-premiums");
 
-    loadingSection = new LoadingSection(this.page);
+    loadingSection = new LoadingPanel(this.page);
 
     dialogSection = new Button(this.page, "//div[@id='dialog' and @style='display: block;']");
 
-    async getSelectByLimitForActualPlan(limitName: string): Promise<Select> {
+    async limitSelectForCurrentPlan(limitName: string): Promise<Select> {
         logger.info('[PolicyMakeChangesPage.getSelectByLimitForActualPlan] - Getting select element for limit');
         const selectedProduct = new Checkbox(this.page, "tr[data-parent-id=''] td label input.parent.product-checkbox:checked");
         const productId = await selectedProduct.getAttribute("data-product-id");
@@ -110,14 +110,14 @@ export class PolicyMakeChangesPage extends BasePage {
      * @param limitName One of: Incident Limit, Deductible, Deductible Frequency, Coinsurance, Coverage Limit
      * @param value The option value/text value to select (must match the option's value attribute configured in the DOM)
      */
-    async selectLimitForActualPlan(limitName: string, value: string): Promise<void> {
+    async chooseLimitForCurrentPlan(limitName: string, value: string): Promise<void> {
         logger.info(`[PolicyMakeChangesPage.selectLimitForActualPlan] - Selecting value [${value}] for limit [${limitName}]`);
-        const selectControl = await this.getSelectByLimitForActualPlan(limitName);
+        const selectControl = await this.limitSelectForCurrentPlan(limitName);
         await selectControl.selectValue(value);
         logger.info(`[PolicyMakeChangesPage.selectLimitForActualPlan] - Selected value [${value}] for limit [${limitName}]`);
     }
 
-    async fillPetDetailsInMakeChangesScreen(makeChangesPetEntity: MakeChangesPetDetails): Promise<void> {
+    async populatePetDetailsOnChangesScreen(makeChangesPetEntity: MakeChangesPetDetails): Promise<void> {
         logger.info('[PolicyMakeChangesPage.fillPetDetailsInMakeChangesScreen] - Filling pet details');
         if (makeChangesPetEntity.makeChangesPetName !== undefined && makeChangesPetEntity.makeChangesPetName !== null) {
             await this.makeChangesPetNameTextBox.setText(makeChangesPetEntity.makeChangesPetName);
@@ -138,7 +138,7 @@ export class PolicyMakeChangesPage extends BasePage {
         }
     }
 
-    async clickMakeChangesInPetTable(petName: string): Promise<void> {
+    async pressMakeChangesInPetTable(petName: string): Promise<void> {
         logger.info(`[PolicyMakeChangesPage.clickMakeChangesInPetTable] - Clicking Make Changes for pet: ${petName}`);
         const makeChangesPetLabel = new Label(this.page, `//div[contains(text(),'${petName}')]/../../..//a[@title="Make Changes"]`);
         if (await makeChangesPetLabel.isDisplayed()) {

@@ -4,9 +4,9 @@ import { Select } from '@controls/select';
 import { Table } from '@controls/table';
 import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
-import { LoadingSection } from './../common-section/loading-section';
+import { LoadingPanel } from './../common-section/loading-section';
 
-export class PartnersPage extends BasePage {
+export class PartnersScreen extends BasePage {
     addPartnerLink = new Link(this.page, "//a[contains(text(),'Add Partner')]");
     groupBillingDashboardLink = new Link(this.page, "//a[contains(text(),'Group Billings')]");
     addGroupBillingLink = new Link(this.page, "//a[contains(text(),'Add Group Billing')]");
@@ -18,5 +18,5 @@ export class PartnersPage extends BasePage {
     partnerResultTable = new Table(this.page, "//table[@id='partners-table']");
     affiliateNamePartnerTextBox = new TextBox(this.page, "#SearchCriteria_AffiliateName");
     defaultAffinityGroupSelect = new Select(this.page, this.page.getByLabel('Default Affinity Group'));
-    loadingSection = new LoadingSection(this.page);
+    loadingSection = new LoadingPanel(this.page);
 }

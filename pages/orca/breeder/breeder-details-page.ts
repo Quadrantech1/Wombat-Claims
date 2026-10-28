@@ -6,10 +6,10 @@ import { TextBox } from '@controls/textbox';
 import { BreederDetailsData, getDefaultBreederDetailsData } from '@data/orca/breeder-data';
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
-import { AlertSection } from '../common-section/alert-section';
+import { AlertPanel } from '../common-section/alert-section';
 import { expect } from '@playwright/test';
 
-export class BreederDetailsPage extends BasePage {
+export class BreederDetailsScreen extends BasePage {
     // Labels - for verification
     firstNameLabel = new Label(this.page, "//div[text()='First Name']");
     lastNameLabel = new Label(this.page, "//div[text()='Last Name']");
@@ -43,14 +43,14 @@ export class BreederDetailsPage extends BasePage {
     // Tables
     littersTable = new Table(this.page, "//table[contains(.,'Litter Reg No')]");
 
-    alertSection = new AlertSection(this.page);
+    alertSection = new AlertPanel(this.page);
 
     /**
      * Fills the breeder details form with provided data
      * @param breederData - Optional partial breeder data. Merges with defaults if not provided.
      * @returns Promise that resolves when form is filled
      */
-    async fillBreederDetails(breederData?: Partial<BreederDetailsData>): Promise<void> {
+    async populateBreederForm(breederData?: Partial<BreederDetailsData>): Promise<void> {
         const formData = { ...getDefaultBreederDetailsData(), ...breederData };
         logger.info(`[BreederDetailsPage.fillBreederDetails] - Filling breeder details with data: ${JSON.stringify(formData)}`);
 
@@ -88,7 +88,7 @@ export class BreederDetailsPage extends BasePage {
      * @param email - The email value to locate
      * @returns TextBox control for the specific email
      */
-    getEmailTextBoxByValue(email: string): TextBox {
+    emailInputWithValue(email: string): TextBox {
         return new TextBox(this.page, `//input[@value='${email}']`);
     }
 
@@ -96,7 +96,7 @@ export class BreederDetailsPage extends BasePage {
      * Gets the first litter certificate number from the litters table
      * @returns Promise resolving to the litter certificate number as string
      */
-    async getFirstLitterCertificateNo(): Promise<string> {
+    async readFirstLitterCertificateNumber(): Promise<string> {
         logger.info('[BreederDetailsPage.getFirstLitterCertificateNo] - Getting first litter certificate number');
         const value = await this.littersTable.getValueCell(1, 1);
         logger.info(`[BreederDetailsPage.getFirstLitterCertificateNo] - Found certificate number: ${value}`);
@@ -107,7 +107,7 @@ export class BreederDetailsPage extends BasePage {
      * Asserts that the breeder detail labels are visible using Playwright expect.
      * Uses inline locators so no additional getters are required.
      */
-    async expectBreederDetailsLabelsVisible(): Promise<void> {
+    async confirmBreederLabelsShown(): Promise<void> {
         logger.info('[BreederDetailsPage.expectBreederDetailsLabelsVisible] - Verifying breeder detail labels are visible');
         await expect(this.firstNameLabel.getLocator()).toBeVisible();
         await expect(this.lastNameLabel.getLocator()).toBeVisible();

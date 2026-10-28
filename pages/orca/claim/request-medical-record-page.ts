@@ -9,7 +9,7 @@ import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 import { timeouts } from '@utils/timeouts-util';
 
-export class RequestMedicalRecordPage extends BasePage {
+export class RequestMedicalRecordScreen extends BasePage {
 
     requestTypeDropdown = new Select(this.page, '#request-type-id');
     petDropdown = new Select(this.page, '#pet-id');
@@ -47,13 +47,13 @@ export class RequestMedicalRecordPage extends BasePage {
      * @param index 1-based index (e.g., 1 for RequestedRecords[0], 2 for RequestedRecords[1])
      * @returns TextBox control for the requested records textarea
      */
-    public getRequestedRecordsTextArea(index: number): TextBox {
+    public requestedRecordsTextArea(index: number): TextBox {
         const zeroBasedIndex = index - 1;
         logger.info(`[RequestMedicalRecordPage.getRequestedRecordsTextArea] - Getting textarea for index ${index} (RequestedRecords[${zeroBasedIndex}])`);
         return new TextBox(this.page, `//textarea[@id='RequestedRecords[${zeroBasedIndex}]']`);
     }
 
-    public async getLinkForReqDetailsPDF(nameDocument: string): Promise<string> {
+    public async requestDetailsPdfLink(nameDocument: string): Promise<string> {
         logger.info(`[RequestMedicalRecordPage.getLinkForReqDetailsPDF] - Getting href for document: ${nameDocument}`);
         const linkReqDetailsPDF = new Link(this.page, `(//div[normalize-space()='${nameDocument}']/..//a[contains(.,'.pdf')])`);
         // wait for it to be visible (15s)
@@ -68,7 +68,7 @@ export class RequestMedicalRecordPage extends BasePage {
      * If pet or vet are undefined, the first available value will be selected.
      * @param data Partial data to override defaults
      */
-    public async fillOutRequestMedicalRecordsForm(data?: Partial<MedicalRecordData>): Promise<void> {
+    public async populateMedicalRecordsRequest(data?: Partial<MedicalRecordData>): Promise<void> {
         const formData: MedicalRecordData = { ...getDefaultMedicalRecord(), ...data };
 
         logger.info(`[RequestMedicalRecordPage.fillOutRequestMedicalRecordsForm] - Filling form with data: ${JSON.stringify(formData)}`);
@@ -97,7 +97,7 @@ export class RequestMedicalRecordPage extends BasePage {
         logger.info('[RequestMedicalRecordPage.fillOutRequestMedicalRecordsForm] - Finished filling form');
     }
 
-    async verifyReqLinkIsPresent(): Promise<void> {
+    async confirmRequestLinkPresent(): Promise<void> {
         try {
             await this.reqLink.isDisplayed();
             logger.info('[RequestMedicalRecordPage.verifyReqLinkIsPresent] - Attachments are present and request link is visible');

@@ -13,7 +13,7 @@ export enum RowsPerPage {
     All = 0,
 }
 
-export class PageTableSection extends BasePage {
+export class PageTablePanel extends BasePage {
     // Dropdown control for selecting number of rows per page (Angular & legacy both use a select)
     numberOfRowsDropdown = new Select(this.page, this.page.locator('#pager').getByRole('combobox'));
 
@@ -36,7 +36,7 @@ export class PageTableSection extends BasePage {
      * Selects the number of rows per page using the visible dropdown (Angular if present, otherwise legacy)
      * @param rows one of RowsPerPage enum values
      */
-    async selectRowsPerPage(rows: RowsPerPage): Promise<void> {
+    async setRowsPerPage(rows: RowsPerPage): Promise<void> {
 
         const dropdown = this.angularNumberOfRowsDropdown.getLocator().or(this.numberOfRowsDropdown.getLocator());
         await expect(dropdown).toBeVisible();

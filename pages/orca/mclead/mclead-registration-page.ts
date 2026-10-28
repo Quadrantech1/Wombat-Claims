@@ -13,7 +13,7 @@ import { Table } from '@controls/table';
 import { Label } from '@controls/label';
 import { logger } from '@utils/logger-util';
 
-export class McLeadRegistrationPage extends BasePage {
+export class McLeadRegistrationScreen extends BasePage {
     // Pet Details Controls
     registrationNoTextBox = new TextBox(this.page, "//input[@id=\"Pet_reg_no\"]");
     registrationDateTextBox = new TextBox(this.page, "//input[@id=\"Pet_registration_date\"]");
@@ -55,7 +55,7 @@ export class McLeadRegistrationPage extends BasePage {
      * @param petData - Optional partial pet data. Merges with defaults if not provided.
      * @returns Promise that resolves when pet details are successfully filled
      */
-    async fillPetDetails(petData?: Partial<McLeadPetData>): Promise<void> {
+    async populatePetSection(petData?: Partial<McLeadPetData>): Promise<void> {
         const formData = { ...getDefaultMcLeadPetData(), ...petData };
         logger.info(`[McLeadRegistrationPage.fillPetDetails] Filling McLead pet details, data: ${JSON.stringify(formData)}`);
         await this.registrationNoTextBox.setText(formData.registrationNo);
@@ -90,7 +90,7 @@ export class McLeadRegistrationPage extends BasePage {
      * @param customerData - Optional partial customer data. Merges with defaults if not provided.
      * @returns Promise that resolves when customer details are successfully filled
      */
-    async fillCustomerDetails(customerData?: Partial<McLeadCustomerData>): Promise<void> {
+    async populateCustomerSection(customerData?: Partial<McLeadCustomerData>): Promise<void> {
         
         const formData = { ...getDefaultMcLeadCustomerData(), ...customerData };
         logger.info('[McLeadRegistrationPage.fillCustomerDetails] Filling customer details');
@@ -114,11 +114,11 @@ export class McLeadRegistrationPage extends BasePage {
      * @param registrationData - Optional partial registration data. Merges with defaults if not provided.
      * @returns Promise that resolves when the complete form is successfully filled
      */
-    async fillRegistration(registrationData?: McLeadRegistrationData): Promise<void> {
+    async populateRegistration(registrationData?: McLeadRegistrationData): Promise<void> {
         logger.info('[McLeadRegistrationPage.fillRegistration] Filling registration');
         // Pass the partial data directly to individual methods - they handle the merging with defaults
-        await this.fillPetDetails(registrationData?.petDetails);
-        await this.fillCustomerDetails(registrationData?.customerDetails);
+        await this.populatePetSection(registrationData?.petDetails);
+        await this.populateCustomerSection(registrationData?.customerDetails);
         logger.info('[McLeadRegistrationPage.fillRegistration] McLead registration form filled successfully');
     }
 }

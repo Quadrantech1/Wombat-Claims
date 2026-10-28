@@ -6,7 +6,7 @@ import { getDefaultBillingInfo, getDefaultCustomerInfo, QuoteApiBillingInfo, Quo
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 
-export class QuoteApiBillingPage extends BasePage {
+export class QuoteApiBillingScreen extends BasePage {
     firstNameTextBox = new TextBox(this.page, "//input[@formcontrolname='firstName']");
     lastNameTextBox = new TextBox(this.page, "//input[@formcontrolname='lastName']");
     addressTextBox = new TextBox(this.page, "//input[@formcontrolname='address']");
@@ -31,7 +31,7 @@ export class QuoteApiBillingPage extends BasePage {
     /**
      * Fills out customer information on billing page
      */
-    async fillOutCustomerInformationOnBillingPage(customerInfo?: Partial<QuoteApiCustomerInfo>): Promise<void> {
+    async populateCustomerInfoOnBilling(customerInfo?: Partial<QuoteApiCustomerInfo>): Promise<void> {
         const defaultData = getDefaultCustomerInfo();
         const data = { ...defaultData, ...customerInfo };
         logger.info(`[QuoteApiBillingPage.fillOutCustomerInformationOnBillingPage] - Filling customer info`);
@@ -46,7 +46,7 @@ export class QuoteApiBillingPage extends BasePage {
     /**
      * Fills out billing information on billing page
      */
-    async fillOutBillingInformationOnBillingPage(billingInfo?: Partial<QuoteApiBillingInfo>): Promise<void> {
+    async populateBillingInfoOnBilling(billingInfo?: Partial<QuoteApiBillingInfo>): Promise<void> {
         const defaultData = getDefaultBillingInfo();
         const data = { ...defaultData, ...billingInfo };
         logger.info(`[QuoteApiBillingPage.fillOutBillingInformationOnBillingPage] - Filling billing info`);

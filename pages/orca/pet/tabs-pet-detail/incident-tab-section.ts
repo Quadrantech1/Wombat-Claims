@@ -1,4 +1,4 @@
 import { BasePage } from '@pages/base-page';
 
-export class IncidentTabSection extends BasePage {
+export class IncidentTabPanel extends BasePage {
 }

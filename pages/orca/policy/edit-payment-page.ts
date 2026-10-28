@@ -5,7 +5,7 @@ import { PaymentMethodData, getDefaultPaymentMethodData } from '@data/orca/payme
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 
-export class EditPaymentPage extends BasePage {
+export class EditPaymentScreen extends BasePage {
     paymentType = new Select(this.page, "//select[@id='select-payment-type']");
     stripePaymentDetailsIframe = new Iframe(this.page, "//iframe[contains(@name,'__privateStripeFrame') and contains(@allow,'publickey-credentials-get')]");
     cardStripeButton = new Button(this.page, '//*[contains(@class,"--card")]/..');
@@ -25,7 +25,7 @@ export class EditPaymentPage extends BasePage {
      * Fills the payment method form with provided data or defaults
      * @param data - Optional data object with payment fields to override defaults
      */
-    async fillPaymentMethod(data?: Partial<PaymentMethodData>): Promise<void> {
+    async populatePaymentMethod(data?: Partial<PaymentMethodData>): Promise<void> {
         const defaultData = getDefaultPaymentMethodData();
         const formData = { ...defaultData, ...data };
         logger.info(`[EditPaymentPage.fillPaymentMethod] - Filling payment method with data: ${JSON.stringify(formData)}`);

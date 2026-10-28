@@ -7,9 +7,9 @@ import { TextBox } from '@controls/textbox';
 import { AffiliateDetails, getDefaultAffiliateDetails } from '@data/orca/affiliate-data';
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
-import { AlertSection } from '../common-section/alert-section';
+import { AlertPanel } from '../common-section/alert-section';
 
-export class AddAffiliatePage extends BasePage {
+export class AddAffiliateScreen extends BasePage {
     // Overview section
     affiliateNameTextBox = new TextBox(this.page, this.page.getByRole('textbox', { name: 'Affiliate Name' }));
     affiliateIdLabel = new TextBox(this.page, "#AffiliateId");
@@ -44,13 +44,13 @@ export class AddAffiliatePage extends BasePage {
     cancelButton = new Link(this.page, this.page.getByRole('link', { name: 'Cancel' }));
     dashboardLink = new Link(this.page, this.page.getByRole('link', { name: 'Dashboard' }));
 
-    alertSection = new AlertSection(this.page);
+    alertSection = new AlertPanel(this.page);
 
     /**
      * Fills out affiliate details form
      * @param affiliateDetails - Partial affiliate details data
      */
-    async fillAffiliateDetails(affiliateDetails?: Partial<AffiliateDetails>): Promise<void> {
+    async populateAffiliateForm(affiliateDetails?: Partial<AffiliateDetails>): Promise<void> {
         const data = { ...getDefaultAffiliateDetails(), ...affiliateDetails };
         logger.info(`[AddAffiliatePage.fillAffiliateDetails] - Filling affiliate details`);
 

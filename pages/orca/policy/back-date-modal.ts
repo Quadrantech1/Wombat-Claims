@@ -5,7 +5,7 @@ import { BasePage } from '@pages/base-page';
 import { Page } from '@playwright/test';
 import { logger } from '@utils/logger-util';
 
-export class BackDateSection extends BasePage {
+export class BackDatePanel extends BasePage {
   newEffectiveDateTextBox= new TextBox(this.page,"//input[@id='newDate']");
   coveragePeriodSelect = new Select(this.page,"//select[@id='mySelect']");
   notesTextBox = new TextBox(this.page,"#Notes");
@@ -16,7 +16,7 @@ export class BackDateSection extends BasePage {
     super(page);
   }
 
-  public async setEffectiveDateAndCoveragePeriod(effectiveDate: string, coveragePeriod: string): Promise<void> {
+  public async applyEffectiveDateAndCoveragePeriod(effectiveDate: string, coveragePeriod: string): Promise<void> {
     logger.info(`[BackDateSection.setEffectiveDateAndCoveragePeriod] Setting effective date: ${effectiveDate} and coverage period: ${coveragePeriod}`);
     await this.newEffectiveDateTextBox.waitForVisible();
     if (coveragePeriod === 'first') {

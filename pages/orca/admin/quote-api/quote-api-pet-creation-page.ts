@@ -6,7 +6,7 @@ import { getDefaultPetInfo, QuoteApiPetInfo } from '@data/orca/quote-api-pet-dat
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 
-export class QuoteApiPetCreationPage extends BasePage {
+export class QuoteApiPetCreationScreen extends BasePage {
     petNameTextBox = new TextBox(this.page, "//input[@formcontrolname='name']");
     genderSelect = new Select(this.page, "//select[@formcontrolname='gender']");
     weightTextBox = new TextBox(this.page, "//input[@formcontrolname='weight']");
@@ -20,7 +20,7 @@ export class QuoteApiPetCreationPage extends BasePage {
     /**
      * Selects pet type radio button
      */
-    async selectPetType(petType: string): Promise<void> {
+    async choosePetSpecies(petType: string): Promise<void> {
         logger.info(`[QuoteApiPetCreationPage.selectPetType] - Selecting pet type: ${petType}`);
         const speciesRadioButton = new RadioButton(this.page, `//label[text()='Pet Type']//following-sibling::div/div/label[contains(text(),'${petType}')]/input`);
         await speciesRadioButton.click();
@@ -29,12 +29,12 @@ export class QuoteApiPetCreationPage extends BasePage {
     /**
      * Fills out pet information
      */
-    async fillOutPetInformation(petInfo?: Partial<QuoteApiPetInfo>): Promise<void> {
+    async populatePetDetailsForm(petInfo?: Partial<QuoteApiPetInfo>): Promise<void> {
         const defaultData = getDefaultPetInfo();
         const data = { ...defaultData, ...petInfo };
         logger.info(`[QuoteApiPetCreationPage.fillOutPetInformation] - Filling pet information`);
         await this.petNameTextBox.setText(data.petName);
-        await this.selectPetType(data.petType);
+        await this.choosePetSpecies(data.petType);
         await this.genderSelect.selectOption(data.gender);
         await this.weightTextBox.setText(data.weight);
         await this.petBreedSelect.selectOption(data.petBreed);

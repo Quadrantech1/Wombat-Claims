@@ -6,7 +6,7 @@ import { TextBox } from '@controls/textbox';
 import { SearchVetData } from '@data/orca/vet-data';
 import { BasePage } from '@pages/base-page';
 
-export class VetDashboardPage extends BasePage {
+export class VetDashboardScreen extends BasePage {
     // TextBoxes
     nameTextBox = new TextBox(this.page, '#SearchCriteria_Name');
     phoneTextBox = new TextBox(this.page, '#SearchCriteria_PhoneNo');
@@ -26,7 +26,7 @@ export class VetDashboardPage extends BasePage {
     // Table
     vetsTable = new Table(this.page, '#vets-table');
 
-    async searchVet(searchVetData: SearchVetData): Promise<void> {
+    async lookupVet(searchVetData: SearchVetData): Promise<void> {
        if (searchVetData.vetName) await this.nameTextBox.setText(searchVetData.vetName);
        if (searchVetData.phone) await this.phoneTextBox.setText(searchVetData.phone);
        if (searchVetData.city) await this.cityTextBox.setText(searchVetData.city);

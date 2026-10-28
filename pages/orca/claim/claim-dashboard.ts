@@ -4,10 +4,10 @@ import { Select } from '@controls/select';
 import { Table } from '@controls/table';
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
-import { AlertSection } from '../common-section/alert-section';
-import { ClaimTeamInbox } from './claim-team-inbox';
+import { AlertPanel } from '../common-section/alert-section';
+import { ClaimTeamInboxScreen } from './claim-team-inbox';
 
-export class ClaimDashboard extends BasePage {
+export class ClaimDashboardScreen extends BasePage {
 
     startPreparingClaimButton = new Button(this.page, "//a[contains(.,'Start prepping claim')]");
     getClaimButton = new Button(this.page, "//a[contains(.,'Get Claim')]");
@@ -37,11 +37,11 @@ export class ClaimDashboard extends BasePage {
     lastItemsButton = new Button(this.page, "//form/img[@class='last']");
     issueClaimsButton = new Button(this.page, "//button[@id='issue-button']");
 
-    alertSection = new AlertSection(this.page);
+    alertSection = new AlertPanel(this.page);
 
-    claimTeamInbox = new ClaimTeamInbox(this.page);
+    claimTeamInbox = new ClaimTeamInboxScreen(this.page);
 
-    async selectAllRowsInTable(): Promise<void> {
+    async chooseAllTableRows(): Promise<void> {
         logger.info(`[ClaimDashboard.selectAllRowsInTable] - Selecting 'All Rows' in the number of rows dropdown if it is displayed`);
         if (await this.numberOfRowsDropdown.isDisplayed()) {
             await this.numberOfRowsDropdown.selectOption('All Rows');

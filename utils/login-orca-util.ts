@@ -1,5 +1,5 @@
 import { config } from '@config/env-config';
-import { LoginPage } from '@pages/orca/login/login-page';
+import { LoginScreen } from '@pages/orca/login/login-page';
 import { Page } from '@playwright/test';
 import { OrcaAuthHelper } from '@test-helpers/orca-auth-helper';
 import { Role } from '@utils/user-credentials-util';
@@ -39,7 +39,7 @@ export async function loginToOrca(page: Page, role: Role = Role.Admin, brand: Br
     if (config.IS_ENABLED_ORCA_MFA) {
         await loginToOrcaViaAPI(page, role, brand);
     } else {
-        const loginPage = new LoginPage(page);
-        await loginPage.iAmLoggedUsingRole(role);
+        const loginPage = new LoginScreen(page);
+        await loginPage.signedInAsRole(role);
     }
 }

@@ -7,7 +7,7 @@ import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 
-export class PolicySearchSection extends BasePage {
+export class PolicySearchPanel extends BasePage {
     policyNumberTextBox = new TextBox(this.page, '#SearchCriteria_PolicyNo');
     marketchannelSelect = new Select(this.page, '#selected-market-channel');
     runSearchButton = new Button(this.page, "//button[contains(.,'Run Search')]");
@@ -27,11 +27,11 @@ export class PolicySearchSection extends BasePage {
     petsResult = new Table(this.page, "//div[contains(@class,'accordion-body')]");
     cancelButton = new Button(this.page, this.page.locator('#coverage-detail-form').getByText('Cancel'));
 
-    getPetNameResultLabel(name: string): Label {
+    petNameResultLabel(name: string): Label {
         return new Label(this.page, `//*[contains(@id,'pet-search-accordion')]//strong[contains(text(),"${name}")]`);
     }
     // Get pet's count from search results table
-    async getPetsCount(): Promise<number> {
+    async countPets(): Promise<number> {
         logger.info('[PolicySearchSection.getPetsCount] - Getting pets count from search results');
         await this.petsResult.waitForVisible();
         const childCount = await this.petsResult.getLocator().evaluate(el => el.childElementCount);
@@ -39,7 +39,7 @@ export class PolicySearchSection extends BasePage {
         return childCount;
     }
 
-    async searchPolicySection(data: {
+    async lookupPolicySection(data: {
         marketChannel?: string;
         policyNumber?: string;
         postalCode?: string;
@@ -73,7 +73,7 @@ export class PolicySearchSection extends BasePage {
      * Example link text: "Policy No: 7164999"
      * @param policyNumber - Policy number to click
      */
-    async clickPolicyLink(policyNumber: string): Promise<void> {
+    async pressPolicyLink(policyNumber: string): Promise<void> {
         logger.info('[PolicySearchSection.clickPolicyLink] - Clicking policy link for: ' + policyNumber);
         const link = new Link(this.page, `//a[contains(normalize-space(.),'Policy No: ${policyNumber}')]`);
         await link.waitForVisible();

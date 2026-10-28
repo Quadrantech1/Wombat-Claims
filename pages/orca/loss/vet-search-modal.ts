@@ -4,10 +4,10 @@ import { Select } from '@controls/select';
 import { Table } from '@controls/table';
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
-import { AlertSection } from '../common-section/alert-section';
+import { AlertPanel } from '../common-section/alert-section';
 import { timeouts } from '@utils/timeouts-util';
 
-export class VetSearchModal extends BasePage {
+export class VetSearchPopup extends BasePage {
 
   nameTextBox = new TextBox(this.page, "#SearchCriteria_Name");
   phoneTextBox = new TextBox(this.page, "#SearchCriteria_PhoneNo");
@@ -22,9 +22,9 @@ export class VetSearchModal extends BasePage {
   vetsResultTable = new Table(this.page, "//table[@id='vets-table']");
   
   // Alert
-  alertSection = new AlertSection(this.page);
+  alertSection = new AlertPanel(this.page);
 
-  async clickOnSelectButton(row: number, initialSearch: string): Promise<void> {
+  async pressSelectButton(row: number, initialSearch: string): Promise<void> {
     logger.info(`[VetSearchModal.clickOnSelectButton] Selecting vet from row: ${row} with initial search: ${initialSearch}`);
     await this.nameTextBox.setText(initialSearch);
     await this.runSearchButton.click();
@@ -32,11 +32,11 @@ export class VetSearchModal extends BasePage {
     await selectButton.click();
     await this.page.waitForTimeout(timeouts.polling);
     await this.alertSection.successfullyAlertLabel.waitForVisible();
-    await this.alertSection.verifySuccessAlertText('Successfully assigned vet to loss');
+    await this.alertSection.confirmSuccessAlertMessage('Successfully assigned vet to loss');
     logger.info(`[VetSearchModal.clickOnSelectButton] Vet selected successfully`);
   }
 
-  async clickOnSpecificSelectButtonByRow(row: number): Promise<void> {  
+  async pressSelectButtonInRow(row: number): Promise<void> {  
     const selectButton = new Button(this.page, `(//table[@id='vets-table']//a[@title='Select Vet'])[${row}]`);
     await selectButton.click();
   }

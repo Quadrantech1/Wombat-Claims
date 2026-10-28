@@ -15,7 +15,7 @@ export enum FinanceActions {
     RecordChargeback = 'Record Chargeback'
 }
 
-export class TransactionTabSection extends BasePage {
+export class TransactionTabPanel extends BasePage {
     /**
      * Transaction table.
      * Columns: CP ID | Transaction Type | Payment Type | Description | Created On | Amount | Balance
@@ -47,7 +47,7 @@ export class TransactionTabSection extends BasePage {
      * Returns a button within the Actions dropdown by its visible action name.
      * @param actionName Visible text of the action option.
      */
-    getActionByActionName(actionName: FinanceActions): Button {
+    actionNamed(actionName: FinanceActions): Button {
         return new Button(this.page, `//div[@id='transactions']//a[contains(text(),'Actions')]/following-sibling::ul//a[contains(text(),'${actionName}')]`);
     }
 
@@ -56,7 +56,7 @@ export class TransactionTabSection extends BasePage {
      * @param description Row cell text used to identify the row.
      * @param amount Amount string to set.
      */
-    async inputAmountInTextBox(description: string, amount: string): Promise<void> {
+    async typeAmountIntoTextBox(description: string, amount: string): Promise<void> {
         logger.info(`[TransactionTabSection.inputAmountInTextBox] - Setting amount '${amount}' for description '${description}'`);
         const textBox = new TextBox(this.page, `//td[contains(text(), '${description}')]/..//input[@type='text']`);
         await textBox.clear();
@@ -68,9 +68,9 @@ export class TransactionTabSection extends BasePage {
      * @param transactionType Transaction type text used to locate matching rows.
      * @param columnName Header name whose column value should be returned.
      */
-    async getPaymentCaptureLatestTransaction(transactionType: string, columnName: string): Promise<string> {
+    async readLatestPaymentCapture(transactionType: string, columnName: string): Promise<string> {
         logger.info(`[TransactionTabSection.getPaymentCaptureLatestTransaction] - Getting latest '${transactionType}' value for column '${columnName}'`);
-        const columnPosition = await this.getColumnIndexByHeader(columnName);
+        const columnPosition = await this.columnIndexForHeader(columnName);
         if (columnPosition === -1) {
             throw new Error(`[TransactionTabSection.getPaymentCaptureLatestTransaction] - Column '${columnName}' not found`);
         }
@@ -87,7 +87,7 @@ export class TransactionTabSection extends BasePage {
      * @param value Raw input string.
      * @returns Processed value as string with 2 decimal places when transformed.
      */
-    processValueWithOperators(value: string): string {
+    evaluateValueWithOperators(value: string): string {
         logger.info(`[TransactionTabSection.processValueWithOperators] - Processing value '${value}'`);
         const processedValue = value.trim();
 
@@ -112,7 +112,7 @@ export class TransactionTabSection extends BasePage {
      * @param headerName Name of the header to search.
      * @returns 1-based index or -1 if not found.
      */
-    private async getColumnIndexByHeader(headerName: string): Promise<number> {
+    private async columnIndexForHeader(headerName: string): Promise<number> {
         logger.info(`[TransactionTabSection.getColumnIndexByHeader] - Searching for header '${headerName}'`);
         const headerCells = this.transactionTypeTable.getLocator().locator('thead tr th');
         const count = await headerCells.count();

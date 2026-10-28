@@ -5,9 +5,9 @@ import { TextBox } from '@controls/textbox';
 import { LitterDetailsData, getDefaultLitterDetailsData } from '@data/orca/breeder-data';
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
-import { AlertSection } from '../common-section/alert-section';
+import { AlertPanel } from '../common-section/alert-section';
 
-export class LitterDetailsSection extends BasePage {
+export class LitterDetailsPanel extends BasePage {
     // Labels - for verification
     breederLabel = new Label(this.page, "//div[text()='Breeder']");
     marketChannelLabel = new Label(this.page, "//div[text()='Market Channel']");
@@ -34,14 +34,14 @@ export class LitterDetailsSection extends BasePage {
     // Buttons
     saveButton = new Button(this.page, "//button[@class='btn btn-success']");
 
-    alertSection = new AlertSection(this.page);
+    alertSection = new AlertPanel(this.page);
 
     /**
      * Fills the litter details form with provided data
      * @param litterData - Optional partial litter data. Merges with defaults if not provided.
      * @returns Promise that resolves when form is filled
      */
-    async fillLitterDetails(litterData?: Partial<LitterDetailsData>): Promise<void> {
+    async populateLitterForm(litterData?: Partial<LitterDetailsData>): Promise<void> {
         const formData = { ...getDefaultLitterDetailsData(), ...litterData };
         logger.info(`[LitterDetailsSection.fillLitterDetails] - Filling litter details with data: ${JSON.stringify(formData)}`);
 

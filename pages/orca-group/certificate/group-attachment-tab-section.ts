@@ -2,13 +2,13 @@ import { Button } from '@controls/button';
 import { Checkbox } from '@controls/checkbox';
 import { Label } from '@controls/label';
 import { Link } from '@controls/link';
-import { AttachmentTabSection } from '@pages/orca/policy/tabs-policy-detail/attachment-tab-section';
+import { PolicyAttachmentsTabPanel } from '@pages/orca/policy/tabs-policy-detail/attachment-tab-section';
 import { downloadPdf } from '@utils/download-util';
 import { logger } from '@utils/logger-util';
 import { getTextPDF } from '@utils/pdf-util';
 import { timeouts } from '@utils/timeouts-util';
 
-export class GroupAttachmentTabSection extends AttachmentTabSection {
+export class GroupAttachmentsTabPanel extends PolicyAttachmentsTabPanel {
     private readonly documentCheckboxSelector = 'input[type="checkbox"].reissue[data-hdn-id="SelectedAttachments"][data-param="attachmentIds"]';
     override term1Link = new Label(this.page, this.page.locator('#certificate-attachments').getByRole('link', { name: /^Term 1\b/ }));
     private readonly term1Group = this.term1Link.getLocator().locator('xpath=ancestor::div[contains(concat(" ",normalize-space(@class)," ")," accordion-group ")][1]');
@@ -25,16 +25,16 @@ export class GroupAttachmentTabSection extends AttachmentTabSection {
     firstTerm1DocumentRow = new Label(this.page, this.firstTerm1DocumentCheckbox.getLocator().locator('xpath=ancestor::div[starts-with(@id,"attachment-")][1]'));
     documentRows = new Label(this.page, this.documentCheckboxes.getLocator().locator('xpath=ancestor::div[starts-with(@id,"attachment-")][1]'));
 
-    getAttachmentRow(rowId: string): Label {
+    attachmentRowFor(rowId: string): Label {
         return new Label(this.page, this.page.locator('#attachments').locator(`[id="${rowId}"]`));
     }
 
-    getAttachmentCheckbox(rowId: string): Checkbox {
-        return new Checkbox(this.page, this.getAttachmentRow(rowId).getLocator().locator(`${this.documentCheckboxSelector}:visible`));
+    attachmentCheckboxFor(rowId: string): Checkbox {
+        return new Checkbox(this.page, this.attachmentRowFor(rowId).getLocator().locator(`${this.documentCheckboxSelector}:visible`));
     }
 
     /** Expands Term 1 and its first document group after opening or refreshing attachments. */
-    async expandDocumentGroups(): Promise<void> {
+    async unfoldDocumentGroups(): Promise<void> {
         await this.term1Link.waitForVisible();
         await this.term1Link.click();
         await this.term1Group.locator(':scope > .accordion-body.in[style*="height: auto"]').waitFor({ state: 'visible', timeout: timeouts.default });
@@ -54,19 +54,19 @@ export class GroupAttachmentTabSection extends AttachmentTabSection {
      * @returns Promise<string> - the extracted text of the newest Declaration PDF
      * @throws Error - if the new Declaration count does not equal previousCount + 1
      */
-    async waitForAndVerifyNewDeclaration(previousCount: number, folderId: string, filePrefix: string): Promise<string> {
+    async awaitAndConfirmNewDeclaration(previousCount: number, folderId: string, filePrefix: string): Promise<string> {
         logger.info(`[GroupAttachmentTabSection.waitForAndVerifyNewDeclaration] - filePrefix: ${filePrefix}`);
         const expectedCount = previousCount + 1;
         await this.page.waitForTimeout(timeouts.default);
         await this.page.reload({ waitUntil: 'networkidle' });
         await new Label(this.page, '//a[@title="Attachment(s)"]').click();
 
-        const newCount = await this.getDeclarationCountFromTerm1();
+        const newCount = await this.countTerm1Declarations();
         if (newCount !== expectedCount) {
             throw new Error(`[GroupAttachmentTabSection.waitForAndVerifyNewDeclaration] - Expected Declaration count ${expectedCount} but found ${newCount}`);
         }
 
-        const { popup, pdfUrl } = await this.openDeclarationDocumentInNewTab(newCount - 1);
+        const { popup, pdfUrl } = await this.launchDeclarationInNewTab(newCount - 1);
         try {
             await downloadPdf(popup, pdfUrl, folderId, `${filePrefix}-Opened.pdf`);
             return await getTextPDF(folderId, `${filePrefix}-Opened.pdf`);
@@ -81,7 +81,7 @@ export class GroupAttachmentTabSection extends AttachmentTabSection {
      * @param cpId - The Coverage Period ID the document belongs to
      * @throws Error if the document row with the CP ID suffix is not found
      */
-    async getDownloadLinkFromLinkWithCpId(nameDocument: string, cpId: string): Promise<string> {
+    async resolveDownloadLinkWithCpId(nameDocument: string, cpId: string): Promise<string> {
         const document = new Link(this.page, `//div[contains(normalize-space(text()),"${nameDocument} ${cpId}")]/..//a[not (@title)]`);
         const href = await document.getAttribute('href');
         if (!href) {
@@ -95,7 +95,7 @@ export class GroupAttachmentTabSection extends AttachmentTabSection {
      * Reads the currently expanded accordion (e.g. Documents and Letters).
      * @param cpId - The Coverage Period ID the documents belong to
      */
-    async getDocumentNamesWithCpId(cpId: string): Promise<string[]> {
+    async documentNamesWithCpId(cpId: string): Promise<string[]> {
         logger.info(`[GroupAttachmentTabSection.getDocumentNamesWithCpId] - Reading documents for CP ID: ${cpId}`);
         const rows = new Label(this.page, `//div[contains(normalize-space(text()),"${cpId}") and ../descendant::a[not(@title)]]`).getLocator();
         await rows.first().waitFor({ state: 'visible', timeout: timeouts.long });

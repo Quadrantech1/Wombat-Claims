@@ -6,7 +6,7 @@ import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 import { expect } from '@playwright/test';
 
-export class DocumentLibrarySearchPage extends BasePage {
+export class DocumentLibrarySearchScreen extends BasePage {
     // Primary action buttons
     searchButton = new Button(this.page, "//button[text() = 'Search']");
     clearButton = new Button(this.page, "//button[text() = 'Clear']");
@@ -39,7 +39,7 @@ export class DocumentLibrarySearchPage extends BasePage {
      * Check if a value is displayed in the search results
      * @param value Text to search for in the results
      */
-    async verifyValueInSearchResult(index: string, position: number = 1): Promise<void> {
+    async confirmValueInSearchResults(index: string, position: number = 1): Promise<void> {
         let searchResultLabel = new Label(this.page, this.page.getByText(index).nth(position));
         await expect.soft(searchResultLabel.getLocator()).toBeVisible();
     }

@@ -1,7 +1,7 @@
 import { Button } from '@controls/button';
 import { Label } from '@controls/label';
 import { Link } from '@controls/link';
-import { TabsPolicyDetailSection } from '@pages/orca/policy/tabs-policy-detail-section';
+import { TabsPolicyDetailPanel } from '@pages/orca/policy/tabs-policy-detail-section';
 import { extractFirstAmount } from '@utils/amounts-util';
 import { logger } from '@utils/logger-util';
 import { BasePage } from '../../base-page';
@@ -39,7 +39,7 @@ export class PolicyDetailPage extends BasePage {
     openCalendarButton = new Button(this.page, this.page.getByRole('button', { name: 'Open calendar' }));
 
     // tab sections
-    tabsPolicyDetailSection = new TabsPolicyDetailSection(this.page);
+    tabsPolicyDetailSection = new TabsPolicyDetailPanel(this.page);
 
     /**
      * Get continue button for a specific policy

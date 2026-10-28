@@ -4,7 +4,7 @@ import { Link } from '@controls/link';
 import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 
-export class LitterSearchSection extends BasePage {
+export class LitterSearchPanel extends BasePage {
     // Text Inputs
     litterRegistrationNoTextBox = new TextBox(this.page, "//input[@id='LitterSearchCriteria_LitterRegNo']");
 

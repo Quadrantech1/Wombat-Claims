@@ -1,7 +1,7 @@
 import { Button } from '@controls/button';
 import { BasePage } from '@pages/base-page';
 
-export class ClaimsProcessingPage extends BasePage {
+export class ClaimsProcessingScreen extends BasePage {
   createNewProcedureCodeButton = new Button(this.page, "//button[contains(text(),'Create New Procedure Code')]");
   ruleCreationForProcedureCodeButton = new Button(this.page, "//button[contains(text(),'Rule Creation for Procedure Code')]");
   ruleCreationForIncidentButton = new Button(this.page, "//button[contains(text(),'Rule Creation for Incident')]");

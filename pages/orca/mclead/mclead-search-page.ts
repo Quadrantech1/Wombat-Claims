@@ -7,7 +7,7 @@ import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 
-export class McLeadSearchPage extends BasePage {
+export class McLeadSearchScreen extends BasePage {
     marketChannelSelect = new Select(this.page, "xpath=//select[@id='selected-market-channel']");
     petDetailsTab = new Label(this.page, "id=pet-search-link");
     customerDetailsTab = new Label(this.page, "id=customer-search-link");
@@ -33,7 +33,7 @@ export class McLeadSearchPage extends BasePage {
      * Returns a Link control for a McLead search result row matching the registration number
      * @param mcLeadRegNumber - registration number to find in the results
      */
-    getMcLeadResultLink(mcLeadRegNumber: string): Link {
+    mcLeadResultLink(mcLeadRegNumber: string): Link {
         logger.info(`[McLeadSearchPage.getMcLeadResultLink] - Getting result link for: ${mcLeadRegNumber}`);
         return new Link(this.page, `xpath=//table//a[@class='selector' and contains(text(),'${mcLeadRegNumber}')]`);
     }

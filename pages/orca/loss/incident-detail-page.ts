@@ -4,7 +4,7 @@ import { Table } from '@controls/table';
 import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 
-export class IncidentDetailPage extends BasePage {
+export class IncidentDetailScreen extends BasePage {
     dateOfEligibilityTextBox = new TextBox(this.page, "#Incident_DateOfEligibility");
     dateOfEligibilityToolTip = new Label(this.page, "//div[@class='tooltip-inner']");
     onsetDateTextBox = new TextBox(this.page, "#Incident_OnsetDate");

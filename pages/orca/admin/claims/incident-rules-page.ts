@@ -4,9 +4,9 @@ import { Table } from '@controls/table';
 import { TextBox } from '@controls/textbox';
 import { getDefaultIncidentRulesData, IncidentRulesEntity } from '@data/orca/incident-rules-data';
 import { logger } from '@utils/logger-util';
-import { IncidentPage } from './incident-page';
+import { IncidentScreen } from './incident-page';
 
-export class IncidentRulesPage extends IncidentPage {
+export class IncidentRulesScreen extends IncidentScreen {
     // Table
     incidentRulesTable = new Table(this.page, this.page.getByLabel('Incident Rules').locator('table'));
 
@@ -29,7 +29,7 @@ export class IncidentRulesPage extends IncidentPage {
     /**
      * Fills out the Incident Rules form
      */
-    async fillIncidentRulesForm(incidentRulesData?: Partial<IncidentRulesEntity>): Promise<void> {
+    async populateIncidentRulesForm(incidentRulesData?: Partial<IncidentRulesEntity>): Promise<void> {
         const defaultData = getDefaultIncidentRulesData();
         const data = { ...defaultData, ...incidentRulesData };
 

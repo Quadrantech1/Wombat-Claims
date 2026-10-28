@@ -7,11 +7,11 @@ import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 import { getDateWithSpecificFormat } from '@utils/date-util';
 import { logger } from '@utils/logger-util';
-import { AlertSection } from '../common-section/alert-section';
-import { TabsClaimDetailSection } from './tabs-claim-detail-section';
+import { AlertPanel } from '../common-section/alert-section';
+import { TabsClaimDetailPanel } from './tabs-claim-detail-section';
 
 
-export class ClaimDetailPage extends BasePage {
+export class ClaimDetailScreen extends BasePage {
 
   // Overview Information Section
   adjusterCustomSelect = new CustomSelectSpan(
@@ -61,7 +61,7 @@ export class ClaimDetailPage extends BasePage {
 
   receivedOnTextBox = new TextBox(this.page, "//input[@id='ClaimDto_ReceivedOn' and @type='text']");
 
-  tabsClaimDetailSection = new TabsClaimDetailSection(this.page);
+  tabsClaimDetailSection = new TabsClaimDetailPanel(this.page);
   adjusterNoteTextBoxFrame = new TextBox(this.page, '//body[@data-id="adjuster-note"]');
   nameOnClaimsDetailsLabel = new Label(this.page, "//div[@id='claim-details']//address/strong");
 
@@ -73,15 +73,15 @@ export class ClaimDetailPage extends BasePage {
   policyHolderAddressLabel = new Label(this.page, "//div[@id='claim-details']//address");
   prop103IndicatorLabel = new Label(this.page, "//*[text()[contains(normalize-space(.),'filed under Prop103')]]");
 
-    async getNameOnClaimsDetails(): Promise<String> {
+    async readNameFromClaimDetails(): Promise<String> {
     logger.info("[ClaimDetailPage>getNameOnClaimsDetails] Getting name on claims details");
     logger.info("[ClaimDetailPage>getNameOnClaimsDetails] Retrieving text from nameOnClaimsDetailsLabel " + await this.nameOnClaimsDetailsLabel.getText());
     return await this.nameOnClaimsDetailsLabel.getText();
   }
   // Alert
-  alertSection = new AlertSection(this.page);
+  alertSection = new AlertPanel(this.page);
 
-  async createClaimDefault(): Promise<void> {
+  async startClaimWithDefaults(): Promise<void> {
     logger.info("[ClaimDetailPage>createClaimDefault] Creating a claim with default values");
     await this.assistantCustomSelect.firstValue();
     await this.processorCustomSelect.firstValue();
@@ -91,7 +91,7 @@ export class ClaimDetailPage extends BasePage {
     await this.receivedOnTextBox.setText(getDateWithSpecificFormat(0));
     await this.saveButton.click();
     await this.submitToProcessingButton.click();
-    await this.alertSection.verifySuccessAlertText("Successfully updated 1 claims to claim status");
+    await this.alertSection.confirmSuccessAlertMessage("Successfully updated 1 claims to claim status");
     logger.info("[ClaimDetailPage>createClaimDefault] Claim created successfully");
   }
 
@@ -99,7 +99,7 @@ export class ClaimDetailPage extends BasePage {
    * Escribe un valor en el textbox dentro del iframe 'adjuster-note_ifr' usando Playwright.
    * @param value El valor a escribir (se reemplazan valores comunes si es necesario)
    */
-  public async setAdjusterNoteInFrame(value: string): Promise<void> {
+  public async writeAdjusterNoteInFrame(value: string): Promise<void> {
     logger.info("[ClaimDetailPage.setAdjusterNoteInFrame] set text in adjuster note: " + value);
     let iframe = new Iframe(this.page, "#adjuster-note_ifr");
     await iframe.textBox('//body[@data-id="adjuster-note"]').setText(value);
@@ -109,11 +109,11 @@ export class ClaimDetailPage extends BasePage {
    * Finalize all losses and complete claim processing workflow
    * This method handles the common pattern of finalizing losses, completing processing, and approving
    */
-  public async finalizeAndCompleteProcessing(): Promise<void> {
+  public async concludeAndFinishProcessing(): Promise<void> {
     logger.info("[ClaimDetailPage.finalizeAndCompleteProcessing] Finalizing all losses and completing processing");
     await this.finalizeAllLossesButton.clickAndWait();
-    await this.alertSection.verifySuccessAlertText('Successfully finalized');
+    await this.alertSection.confirmSuccessAlertMessage('Successfully finalized');
     await this.completeProcessingButton.clickAndWait();
-    await this.alertSection.verifySuccessAlertText('Successfully updated 1 claims to claim status');
+    await this.alertSection.confirmSuccessAlertMessage('Successfully updated 1 claims to claim status');
   }
 }

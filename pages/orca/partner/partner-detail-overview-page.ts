@@ -8,7 +8,7 @@ import { getDefaultPartnerDetailOverview, PartnerDetailOverview } from '@data/or
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 
-export class PartnerDetailOverviewPage extends BasePage {
+export class PartnerDetailOverviewScreen extends BasePage {
     partnerNameTextBox = new TextBox(this.page, "//input[@id = 'partner-detail-form-display' and @type ='text']");
     partnerCodeTextBox = new TextBox(this.page, "//input[@id = 'partner-detail-form-code' and @type ='text']");
     defaultAffinityGroupSelect = new Select(this.page, "//select[@id='partner-detail-form-affinity-group-id']");
@@ -30,7 +30,7 @@ export class PartnerDetailOverviewPage extends BasePage {
      * Fills partner detail overview details
      * @param partnerDetails - Partial partner detail overview data
      */
-    async fillPartnerDetailOverview(partnerDetails?: Partial<PartnerDetailOverview>): Promise<void> {
+    async populatePartnerOverview(partnerDetails?: Partial<PartnerDetailOverview>): Promise<void> {
         const data = { ...getDefaultPartnerDetailOverview(), ...partnerDetails };
         logger.info(`[PartnerDetailOverviewPage.fillPartnerDetailOverview] - Filling partner detail overview`);
         await this.partnerNameTextBox.setText(data.partnerName);

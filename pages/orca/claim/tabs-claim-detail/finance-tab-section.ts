@@ -4,7 +4,7 @@ import { Label } from '@controls/label';
 import { Link } from '@controls/link';
 import { BasePage } from '@pages/base-page';
 
-export class FinanceTabSection extends BasePage {
+export class FinanceTabPanel extends BasePage {
     // Finance sub-tab controls
     voidCheckButton = new Button(this.page, '//a[@title="Void Check"]');
     voidCheckLabel = new Label(this.page, '//h3[text()="Void Check"]');

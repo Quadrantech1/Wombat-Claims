@@ -2,12 +2,12 @@ import { Button } from '@controls/button';
 import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
-import { AlertSection } from './../common-section/alert-section';
+import { AlertPanel } from './../common-section/alert-section';
 
 /**
  * Page object for the Register Account page in ORCA
  */
-export class RegisterPage extends BasePage {
+export class RegisterScreen extends BasePage {
     // TextBoxes
     emailTextBox = new TextBox(this.page, '//*[@id="Email" and not(@type="hidden")]');
     passwordTextBox = new TextBox(this.page, '//*[@id="Password" and not(@type="hidden")]');
@@ -16,7 +16,7 @@ export class RegisterPage extends BasePage {
     // Button
     submitButton = new Button(this.page, "//button[text()='Submit']");
 
-    alertSection = new AlertSection(this.page);
+    alertSection = new AlertPanel(this.page);
 
     /**
      * Registers a new account and waits for navigation
@@ -24,7 +24,7 @@ export class RegisterPage extends BasePage {
      * @param password - Password for the new account
      * @param confirmPassword - Password confirmation
      */
-    async registerNewAccountAndWait(email: string, password: string, confirmPassword: string): Promise<void> {
+    async createAccountAndAwaitCompletion(email: string, password: string, confirmPassword: string): Promise<void> {
         logger.info(`[RegisterPage.registerNewAccountAndWait] - Registering new account with email: ${email}`);
 
         await this.emailTextBox.setText(email);

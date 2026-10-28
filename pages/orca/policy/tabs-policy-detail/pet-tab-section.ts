@@ -3,20 +3,20 @@ import { Table } from '@controls/table';
 import { BasePage } from '@pages/base-page';
 import { Locator } from '@playwright/test';
 import { logger } from '@utils/logger-util';
-export class PetTabSection extends BasePage {
+export class PetTabPanel extends BasePage {
 
   petsTable = new Table(this.page, '//div[@id="pets-table"]/div/table[@id="search-results"]');
   deductibleTable = new Table(this.page, '//div[@id="deductible-tracker-accordion"]//table');
   deductibleTrackerLink = new Link(this.page, "//a[contains(.,'Deductible Tracker')]");
 
-  async getPetValuesByColumn(columnName: string, rowNumber: number): Promise<string> {
+  async readPetColumnValues(columnName: string, rowNumber: number): Promise<string> {
     logger.info(`[GroupPetTabSection.getPetValuesByColumn] - Getting column: ${columnName}, row: ${rowNumber} from petsTable`);
     return await this.petsTable.getCellValueByColumn(columnName, rowNumber);
   }
 
-  async getPetIdByPetName(petName: string): Promise<string> {
+  async readPetIdForName(petName: string): Promise<string> {
     logger.info(`[PetTabSection.getPetIdByPetName] - Getting pet ID for pet: ${petName}`);
-    const petLinkHref = await this.getPetRowByName(petName).locator('a').first().getAttribute('href');
+    const petLinkHref = await this.petRowNamed(petName).locator('a').first().getAttribute('href');
     const petIdMatch = petLinkHref?.match(/[?&]groupPetId=(\d+)/) ?? petLinkHref?.match(/\d+(?!.*\d)/);
     if (!petIdMatch) {
       throw new Error(`[PetTabSection.getPetIdByPetName] - Pet ID was not found for pet: ${petName}`);
@@ -25,12 +25,12 @@ export class PetTabSection extends BasePage {
     return petIdMatch[1] ?? petIdMatch[0];
   }
 
-  async clickPetByName(petName: string): Promise<void> {
+  async openPetNamed(petName: string): Promise<void> {
     logger.info(`[PetTabSection.clickPetByName] - Opening pet detail for pet: ${petName}`);
-    await this.getPetRowByName(petName).locator('a').first().click();
+    await this.petRowNamed(petName).locator('a').first().click();
   }
 
-  private getPetRowByName(petName: string): Locator {
+  private petRowNamed(petName: string): Locator {
     return this.petsTable.getLocator().locator('tbody tr').filter({ hasText: petName }).first();
   }
 
@@ -46,7 +46,7 @@ export class PetTabSection extends BasePage {
    * // Check all fields
    * await verifyPetsTabDetails([{ petName: 'Pet 1', breed: '', species: 'Cat', age: '0', createdOn: '11/6/2025' }]);
    */
-  async verifyPetsTabDetails(
+  async confirmPetsTabDetails(
     expectedPets: Array<{
       petName?: string;
       breed?: string;
@@ -101,7 +101,7 @@ export class PetTabSection extends BasePage {
    * regardless of row order. Only checks fields that are provided (non-undefined values).
    * @param expectedPets Array of expected pet details to find in the table
    */
-  async verifyPetsTabDetailsUnordered(
+  async confirmPetsTabDetailsAnyOrder(
     expectedPets: Array<{
       petName?: string;
       breed?: string;

@@ -2,7 +2,7 @@ import { expect, test } from '@fixtures/base-fixtures';
 import { HamburgerMenuOptions } from '@pages/orca/common-section/menu-top-section';
 import { TabPolicyOptions } from '@pages/orca/policy/tabs-policy-detail-section';
 import { LegacyQuotePageManager } from '@pages/page-managers/legacy-quote-page-manager';
-import { OrcaPageManager } from '@pages/page-managers/orca-page-manager';
+import { OrcaScreenManager } from '@pages/page-managers/orca-page-manager';
 import { MailosaurService } from '@services/mailosaur-service';
 import { BrandFullName, BrandUrl } from '@utils/brand-util';
 import { getDateWithSpecificFormat, getYearsAgoDate, getYesterdayDate } from '@utils/date-util';
@@ -13,9 +13,9 @@ import { getRandomValue } from '@utils/random-values-util';
 import { timeouts } from '@utils/timeouts-util';
 
 
-test(`ProdReleaseAKC > Activate 30 day coverage and verify Orca, Attachments and Email`,
+test(`ProdReleaseAKC > Activate 30-day coverage, then validate Orca records, attachments and email`,
     { tag: ['@OrcaWebApp', '@ProdRelease', '@ProdReleaseAKC'] }, async ({ navigation, page }) => {
-        const orca = new OrcaPageManager(page);
+        const orca = new OrcaScreenManager(page);
         const mailosaurService = new MailosaurService();
         const randomValue = getRandomValue();
         const todayDateFormatted = getDateWithSpecificFormat(0, 'M/d/yyyy');
@@ -33,14 +33,14 @@ test(`ProdReleaseAKC > Activate 30 day coverage and verify Orca, Attachments and
 
         const context = {} as { policyId: string };
 
-        await test.step('Step 1: Create McLead registration for AKC via Orca', async () => {
+        await test.step('Step 1: Register an AKC McLead through Orca', async () => {
             await navigation.openBrandWebPage(BrandUrl.ORCA);
             await loginToOrca(page);
 
-            await orca.menuTopSection.clickMenuOption(HamburgerMenuOptions.Mclead);
+            await orca.menuTopSection.chooseMenuEntry(HamburgerMenuOptions.Mclead);
             await orca.mcLeadDetailsPage.addRegistrationsButton.click();
 
-            await orca.mcLeadRegistrationPage.fillRegistration({
+            await orca.mcLeadRegistrationPage.populateRegistration({
                 petDetails: {
                     registrationNo: testData.registrationNo,
                     registrationDate: getYesterdayDate(),
@@ -64,7 +64,7 @@ test(`ProdReleaseAKC > Activate 30 day coverage and verify Orca, Attachments and
             await expect(page.getByText('Successfully added registration')).toBeVisible();
         });
 
-        await test.step('Step 2: Create AKC 30 day cert using Orca Mclead registration', async () => {
+        await test.step('Step 2: Issue the AKC 30-day certificate from the Orca McLead registration', async () => {
             await page.waitForTimeout(timeouts.veryShort);
             const akcTab = await navigation.openUrlInNewTab(BrandUrl.AKC + '?au=orcaautomationtesting');
             const quote = new LegacyQuotePageManager(akcTab);
@@ -94,25 +94,25 @@ test(`ProdReleaseAKC > Activate 30 day coverage and verify Orca, Attachments and
             context.policyId = policyId;
         });
 
-        await test.step('Step 3: Verify policy details in Orca app', async () => {
+        await test.step('Step 3: Validate policy information in the Orca application', async () => {
             await orca.menuTopSection.hamburgerMenuTabs.click();
-            await orca.menuTopSection.searchPolicy(context.policyId);
-            expect(await orca.policyDetailPage.getValueFromControl('Policy No')).toContain(context.policyId);
-            expect(await orca.policyDetailPage.getValueFromControl('Market Channel')).toBe(BrandFullName.AKC);
-            expect(await orca.policyDetailPage.getValueFromControl('Created On')).toBe(todayDateFormatted);
-            expect(await orca.policyDetailPage.getValueFromControl('Status')).toBe('Active');
-            expect(await orca.policyDetailPage.getValueFromControl('Delivery Type')).toBe('Email');
-            expect(await orca.policyDetailPage.getValueFromControl('Payment Frequency')).toBe('Monthly');
-            expect(await orca.policyDetailPage.getValueFromControl('Hold Payment')).toBe('No');
-            expect(await orca.policyDetailPage.getValueFromControl('Partner')).toBe('AKC Pet Insurance');
+            await orca.menuTopSection.lookupPolicy(context.policyId);
+            expect(await orca.policyDetailPage.readControlValue('Policy No')).toContain(context.policyId);
+            expect(await orca.policyDetailPage.readControlValue('Market Channel')).toBe(BrandFullName.AKC);
+            expect(await orca.policyDetailPage.readControlValue('Created On')).toBe(todayDateFormatted);
+            expect(await orca.policyDetailPage.readControlValue('Status')).toBe('Active');
+            expect(await orca.policyDetailPage.readControlValue('Delivery Type')).toBe('Email');
+            expect(await orca.policyDetailPage.readControlValue('Payment Frequency')).toBe('Monthly');
+            expect(await orca.policyDetailPage.readControlValue('Hold Payment')).toBe('No');
+            expect(await orca.policyDetailPage.readControlValue('Partner')).toBe('AKC Pet Insurance');
         });
 
-        await test.step('Step 4: Verify Coverage & Premium tracker', async () => {
-            await orca.policyDetailPage.tabsPolicyDetailSection.clickTabOption(TabPolicyOptions.coverageTab);
+        await test.step('Step 4: Validate the Coverage & Premium tracker', async () => {
+            await orca.policyDetailPage.tabsPolicyDetailSection.openTab(TabPolicyOptions.coverageTab);
             await orca.policyDetailPage.tabsPolicyDetailSection.coverageTabSection.upcomingLink.click();
             await orca.policyDetailPage.tabsPolicyDetailSection.loadingSection.loadingSpinnerTableValueIcon.waitWhileControlDisappears(timeouts.default);
             expect(await orca.policyDetailPage.tabsPolicyDetailSection.coverageTabSection.upcomingPetDetailTable.isValueDisplayedInTable(testData.petName)).toBeTruthy();
-            const cpId = await orca.policyDetailPage.tabsPolicyDetailSection.coverageTabSection.getTheCpId('Upcoming');
+            const cpId = await orca.policyDetailPage.tabsPolicyDetailSection.coverageTabSection.readCpId('Upcoming');
             const tomorrow = getDateWithSpecificFormat(1, 'M/d/yyyy');
             const futureDate = getDateWithSpecificFormat(30, 'M/d/yyyy');
             await orca.policyDetailPage.tabsPolicyDetailSection.coverageTabSection.premiumTrackerLink.click();
@@ -121,8 +121,8 @@ test(`ProdReleaseAKC > Activate 30 day coverage and verify Orca, Attachments and
             ]);
         });
 
-        await test.step('Step 5: Verify Transactions', async () => {
-            await orca.policyDetailPage.tabsPolicyDetailSection.clickTabOption(TabPolicyOptions.transactionTab);
+        await test.step('Step 5: Validate transaction history', async () => {
+            await orca.policyDetailPage.tabsPolicyDetailSection.openTab(TabPolicyOptions.transactionTab);
             await orca.policyDetailPage.tabsPolicyDetailSection.loadingSection.loadingSpinnerTableValueIcon.waitWhileControlDisappears(timeouts.default);
             await orca.policyDetailPage.tabsPolicyDetailSection.transactionTabSection.transactionTypeTable.verifyRowsInTable([
                 ['IGNORE', 'IGNORE', 'N/A', 'Invoice', todayDateFormatted, 'IGNORE', 'IGNORE'],
@@ -130,7 +130,7 @@ test(`ProdReleaseAKC > Activate 30 day coverage and verify Orca, Attachments and
             ]);
         });
 
-        await test.step('Step 6: Verify email and attachment content', async () => {
+        await test.step('Step 6: Validate email body and attachment content', async () => {
             const subject = `Policy: ${context.policyId} Welcome to the Family!`;
             expect(await mailosaurService.hasEmailWithSubject(testData.email, subject, timeouts.long)).toBeTruthy();
             const welcomeAttachmentsList = await mailosaurService.getAttachmentsList(testData.email, subject);
@@ -141,27 +141,27 @@ test(`ProdReleaseAKC > Activate 30 day coverage and verify Orca, Attachments and
             }
         });
 
-        await test.step('Step 7: Verify Attachments in Orca', async () => {
-            await orca.policyDetailPage.tabsPolicyDetailSection.clickTabOption(TabPolicyOptions.attachmentTab);
-            await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.verifyTerm1AndOtherAttachmentsLoaded();
+        await test.step('Step 7: Validate attachments listed in Orca', async () => {
+            await orca.policyDetailPage.tabsPolicyDetailSection.openTab(TabPolicyOptions.attachmentTab);
+            await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.confirmTerm1AndOtherAttachmentsLoaded();
 
             await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.term1Link.click();
             await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.termsAndConditionsLink.click();
-            expect(await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.verifyDocumentHasText('Terms and Conditions', 'Terms and Conditions', context.policyId)).toBeTruthy();
+            expect(await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.confirmDocumentContainsText('Terms and Conditions', 'Terms and Conditions', context.policyId)).toBeTruthy();
 
             await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.documentsAndLettersLink.click();
-            expect(await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.verifyDocumentHasText('Privacy Policy', 'This Privacy Notice is provided for your information', context.policyId)).toBeTruthy();
+            expect(await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.confirmDocumentContainsText('Privacy Policy', 'This Privacy Notice is provided for your information', context.policyId)).toBeTruthy();
 
             await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.declarationsLink.click();
-            expect(await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.verifyDocumentHasText('Declarations', ['POLICY DECLARATIONS PAGE', String(context.policyId)], context.policyId)).toBeTruthy();
+            expect(await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.confirmDocumentContainsText('Declarations', ['POLICY DECLARATIONS PAGE', String(context.policyId)], context.policyId)).toBeTruthy();
 
             await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.otherLink.click();
             await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.otherDocumentsAndLettersLink.click();
-            expect(await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.verifyDocumentHasText('Welcome Letter', ['Welcome to the AKC Pet Insurance Family!', String(context.policyId)], context.policyId)).toBeTruthy();
-            expect(await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.verifyDocumentHasText('E-Consent Notice', 'CONSUMER CONSENT TO THE ELECTRONIC DELIVERY OF RECORDS & DOCUMENTS', context.policyId)).toBeTruthy();
+            expect(await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.confirmDocumentContainsText('Welcome Letter', ['Welcome to the AKC Pet Insurance Family!', String(context.policyId)], context.policyId)).toBeTruthy();
+            expect(await orca.policyDetailPage.tabsPolicyDetailSection.attachmentTabSection.confirmDocumentContainsText('E-Consent Notice', 'CONSUMER CONSENT TO THE ELECTRONIC DELIVERY OF RECORDS & DOCUMENTS', context.policyId)).toBeTruthy();
         });
 
-        await test.step('Step 8: Update policy status to void', async () => {
+        await test.step('Step 8: Change the policy status to void', async () => {
             await orca.policyDetailPage.statusSelect.selectOption('Void');
             await orca.policyDetailPage.saveButton.click();
             expect(await orca.policyDetailPage.alertSection.successfullyAlertLabel.getText()).toContain('Successfully updated Policy details');

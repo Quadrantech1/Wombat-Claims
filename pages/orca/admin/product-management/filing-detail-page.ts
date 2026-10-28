@@ -6,7 +6,7 @@ import { Table } from '@controls/table';
 import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 
-export class FilingDetailPage extends BasePage {
+export class FilingDetailScreen extends BasePage {
     marketingTextBox = new TextBox(this.page, "#decPageDisplay");
     saveButton = new Button(this.page, "#saveButton");
     overviewLabel = new Label(this.page, "//h5[text()='Overview']");

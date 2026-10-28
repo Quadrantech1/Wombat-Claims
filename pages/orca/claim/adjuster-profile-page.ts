@@ -6,9 +6,9 @@ import { Table } from '@controls/table';
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 import { Page } from 'playwright';
-import { AlertSection } from '../common-section/alert-section';
+import { AlertPanel } from '../common-section/alert-section';
 
-export class ClaimAdjusterProfilePage extends BasePage {
+export class ClaimAdjusterProfileScreen extends BasePage {
     adjusterTable = new Table(this.page, "//table[@class='table table-bordered table-striped']");
     totalSubmittedLevel = new Select(this.page, "//select[@formcontrolname='claimTotalAssignment']");
     saveButton = new Button(this.page, "//button[normalize-space()='Save']");
@@ -20,7 +20,7 @@ export class ClaimAdjusterProfilePage extends BasePage {
     clearAllButton = new Button(this.page, "//div[@class='ng-dropdown-header']//button[text()='Clear All']");
     stateAssignmentDropDownSelect = new MultipleSelect(this.page, "//ng-dropdown-panel[@role='listbox']//div[@role='option']");
 
-    alertSection = new AlertSection(this.page);
+    alertSection = new AlertPanel(this.page);
     constructor(page: Page) {
         super(page);
     }
@@ -29,7 +29,7 @@ export class ClaimAdjusterProfilePage extends BasePage {
      * Clicks the edit button for a specific section
      * @param section - The section name to edit
      */
-    async clickOnEditButtonForSection(section: string): Promise<void> {
+    async pressEditForSection(section: string): Promise<void> {
         logger.info(`[ClaimAdjusterProfilePage.clickOnEditButtonForSection] - Clicking edit button for section: ${section}`);
         const editSectionButton = new Button(this.page, `//h5[text()='${section}']/following-sibling::button`);
         await editSectionButton.waitForVisible();
@@ -40,7 +40,7 @@ export class ClaimAdjusterProfilePage extends BasePage {
      * Clicks on a specific state in the state assignment dropdown
      * @param state - The state name to select
      */
-    async clickOnStateInStateAssignmentDropDown(state: string): Promise<void> {
+    async pressStateInAssignmentDropdown(state: string): Promise<void> {
         logger.info(`[ClaimAdjusterProfilePage.clickOnStateInStateAssignmentDropDown] - Selecting state: ${state}`);
         const stateLabel = new Label(this.page, `//ng-dropdown-panel[@role='listbox']//div[@role='option']/span[contains(text(),'${state}')]`);
         await stateLabel.click();
@@ -50,7 +50,7 @@ export class ClaimAdjusterProfilePage extends BasePage {
      * Verifies that options in the state assignment dropdown are sorted alphabetically
      * @returns true if options are sorted, false otherwise
      */
-    async verifyOptionsinStateAssignmentDropDownSorted(): Promise<boolean> {
+    async confirmAssignmentDropdownSortOrder(): Promise<boolean> {
         logger.info('[ClaimAdjusterProfilePage.verifyOptionsinStateAssignmentDropDownSorted] - Verifying state options are sorted');
         const statesBeforeSorting = await this.stateAssignmentDropDownSelect.getValuesInStateAssignmentDropDown();
         const expectedSortedStates = [...statesBeforeSorting].sort();

@@ -4,9 +4,9 @@ import { Select } from '@controls/select';
 import { Table } from '@controls/table';
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
-import { AlertSection } from '../common-section/alert-section';
+import { AlertPanel } from '../common-section/alert-section';
 
-export class QuoteDetailsPage extends BasePage {
+export class QuoteDetailsScreen extends BasePage {
   petTableMakeChangesButton = new Button(this.page, "a#btn-edit-coverage");
   plusButton = new Button(this.page, "div.plus");
   covPetDetailsTable = new Table(this.page, "table.table-striped.table-bordered.coverages");
@@ -32,12 +32,12 @@ export class QuoteDetailsPage extends BasePage {
   saveQuoteToPolicy = new Button(this.page, "#createQuoteBtn");
   productNameInCoverageSummaryTableLabel = new Label(this.page, "//strong[text()='AccidentCare' or text()='CompanionCare']");
 
-  alertSection = new AlertSection(this.page);
+  alertSection = new AlertPanel(this.page);
   /**
    * Clicks the Cancel Coverage button in the row for the given pet name.
    * @param petNameInTable Pet name as shown in the table
    */
-  async clickCancelButtonInRow(petNameInTable: string): Promise<void> {
+  async pressCancelInRow(petNameInTable: string): Promise<void> {
     logger.info(`[QuoteDetailsPage.clickCancelButtonInRow] - Clicking Cancel Coverage for pet: ${petNameInTable}`);
     const rowCancelLocator = this.page.locator(
       `xpath=//tr[.//td//div//div[normalize-space(text())='${petNameInTable}']]//a[contains(normalize-space(.),'Cancel Coverage')]`
@@ -50,7 +50,7 @@ export class QuoteDetailsPage extends BasePage {
    * Gets the message in the row for the given pet name.
    * @param petNameInTable Pet name as shown in the table
    */
-  async getMessageInPetNameRow(petNameInTable: string): Promise<string> {
+  async readMessageInPetRow(petNameInTable: string): Promise<string> {
     logger.info(`[QuoteDetailsPage.getMessageInPetNameRow] - Getting message for pet: ${petNameInTable}`);
     return await new Label(this.page, `//td/div/div[contains(.,'${petNameInTable}')]//strong`).getText();
   }
@@ -59,7 +59,7 @@ export class QuoteDetailsPage extends BasePage {
    * Gets the premium value for a newly added pet by row index (1-based).
    * @param row Row index (1-based)
    */
-  async getPremiumValueForNewAddedPets(row: number): Promise<string> {
+  async readPremiumForAddedPets(row: number): Promise<string> {
     logger.info(`[QuoteDetailsPage.getPremiumValueForNewAddedPets] - Getting premium value for row: ${row}`);
     return await new Label(this.page, `(//tr[contains(@id,'coverage')]/td[contains(text(),'/ mo')])[${row}]`).getText();
   }
@@ -68,7 +68,7 @@ export class QuoteDetailsPage extends BasePage {
    * Clicks the Make Changes button in the given row (1-based).
    * @param row Row index (1-based)
    */
-  async clickMakeChangesButtonInRow(row: number): Promise<void> {
+  async pressMakeChangesInRow(row: number): Promise<void> {
     logger.info(`[QuoteDetailsPage.clickMakeChangesButtonInRow] - Clicking Make Changes for row: ${row}`);
     await new Button(this.page, `(//a[@id="btn-edit-coverage"])[${row}]`).click();
   }
@@ -77,7 +77,7 @@ export class QuoteDetailsPage extends BasePage {
    * Clicks the Make Changes button in the coverage period table for the given pet name.
    * @param petName Pet name as shown in the table
    */
-  async clickMakeChangesButtonInCoveragePeriodTable(petName: string): Promise<void> {
+  async pressMakeChangesInCoverageTable(petName: string): Promise<void> {
     logger.info(`[QuoteDetailsPage.clickMakeChangesButtonInCoveragePeriodTable] - Clicking Make Changes for pet: ${petName}`);
     await new Button(this.page, `//td[contains(.,'${petName}')]/..//a[@title='Make Changes']`).click();
   }
@@ -87,7 +87,7 @@ export class QuoteDetailsPage extends BasePage {
    * Uses a scoped CSS selector with :has() to find the correct row by pet name.
    * @param petName Pet name as displayed in the UI
    */
-  async clickPlusByPetNameInCoveragePeriodTable(petName: string): Promise<void> {
+  async pressPlusForPetInCoverageTable(petName: string): Promise<void> {
     logger.info(`[QuoteDetailsPage.clickPlusByPetNameInCoveragePeriodTable] - Clicking plus toggle for pet: ${petName}`);
     const plusButton = new Button(this.page, `.row-fluid:has(.span11:has-text("${petName}")) .toggle.plus`);
     await plusButton.click();

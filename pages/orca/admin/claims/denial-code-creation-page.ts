@@ -4,7 +4,7 @@ import { TextBox } from "@controls/textbox";
 import { BasePage } from "@pages/base-page";
 
 
-export class DenialCodeCreationPage extends BasePage {
+export class DenialCodeCreationScreen extends BasePage {
     // Labels
     noDataAvailableLabel = new Label(this.page, "//label[contains(text(),'No data available')]");
     // TextBoxes

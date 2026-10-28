@@ -4,7 +4,7 @@ import { TextBox } from '@controls/textbox';
 import { Table } from '@controls/table';
 import { Select } from '@controls/select';
 
-export class UserManagementPage extends BasePage {
+export class UserManagementScreen extends BasePage {
     clearButton = new Button(this.page, "//a[contains(text(),'Clear')]");
     runSearchButton = new Button(this.page, "#btn-run-search");
     addNewButton = new Button(this.page, "//a[contains(text(),' Add New')]");

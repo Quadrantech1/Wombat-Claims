@@ -4,7 +4,7 @@ import { Table } from '@controls/table';
 import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 
-export class LeadFeeStateManagementDashboardPage extends BasePage {
+export class LeadFeeStateManagementDashboardScreen extends BasePage {
     // Search controls
     searchLeadFeeTierTextBox = new TextBox(this.page, this.page.getByLabel('Search Lead Fee Tier'));
     runSearchButton = new Button(this.page, this.page.getByRole('button', { name: 'Run Search' }));

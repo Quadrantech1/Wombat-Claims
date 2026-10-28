@@ -5,10 +5,10 @@ import { Select } from '@controls/select';
 import { Table } from '@controls/table';
 import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
-import { AlertSection } from '../common-section/alert-section';
+import { AlertPanel } from '../common-section/alert-section';
 
 
-export class CustomerDetailPage extends BasePage {
+export class CustomerDetailScreen extends BasePage {
 
     firstNameTextBox = new TextBox(this.page, "input#Customer_FirstName");
     lastNameTextBox = new TextBox(this.page, "input#Customer_LastName");
@@ -31,5 +31,5 @@ export class CustomerDetailPage extends BasePage {
     notesTab = new Table(this.page, this.page.locator("#note-row").locator("div").last());
     sameAddressAsPrimaryCheckBox = new Checkbox(this.page, "#SameAddressAsPrimary");
 
-    alertSection = new AlertSection(this.page);
+    alertSection = new AlertPanel(this.page);
 }

@@ -1,16 +1,16 @@
 import { expect, test } from '@fixtures/base-fixtures';
-import { OrcaPageManager } from '@pages/page-managers/orca-page-manager';
+import { OrcaScreenManager } from '@pages/page-managers/orca-page-manager';
 import { QuoteToolHelper } from '@test-helpers/quote-tool-helper';
 import { BrandFullName, BrandUrl } from '@utils/brand-util';
 import { getDateWithSpecificFormat } from '@utils/date-util';
 import { loginToOrca } from '@utils/login-orca-util';
 
-test('Orca > Verify user can look up a policy information', { tag: ['@Sanity', '@Regression', '@Policy', '@11305'] }, async ({ page, navigation }) => {
+test('Orca > User can view policy overview details', { tag: ['@Sanity', '@Regression', '@Policy', '@11305'] }, async ({ page, navigation }) => {
   const quoteToolHelper = new QuoteToolHelper(page);
   let policy_id: string;
-  let orca = new OrcaPageManager(page);
+  let orca = new OrcaScreenManager(page);
 
-  await test.step('Step 1: Create policy via helper', async () => {
+  await test.step('Step 1: Set up a policy using the helper', async () => {
     policy_id = await quoteToolHelper.createLegacyPolicy('PPI', {
       annualLimit: '$10,000',
       deductible: '$250',
@@ -20,13 +20,13 @@ test('Orca > Verify user can look up a policy information', { tag: ['@Sanity', '
     });
   });
 
-  await test.step('Step 2: Login and navigate to policy', async () => {
+  await test.step('Step 2: Sign in and open the policy', async () => {
     await navigation.openBrandWebPage(BrandUrl.ORCA);
     await loginToOrca(page);
-    await orca.menuTopSection.searchPolicy(policy_id);
+    await orca.menuTopSection.lookupPolicy(policy_id);
   });
 
-  await test.step('Step 3: Verify overview information', async () => {
+  await test.step('Step 3: Validate the overview details', async () => {
     const today_date = getDateWithSpecificFormat(0, 'M/d/yyyy');
     const expectedValues: { [key: string]: string } = {
       'Policy No': policy_id,
@@ -41,7 +41,7 @@ test('Orca > Verify user can look up a policy information', { tag: ['@Sanity', '
       'Linked Policy(ies)': 'N/A',
     };
     for (const [control, expected] of Object.entries(expectedValues)) {
-      const value = await orca.policyDetailPage.getValueFromControl(control);
+      const value = await orca.policyDetailPage.readControlValue(control);
       expect(value.trim()).toBe(expected);
     }
   });

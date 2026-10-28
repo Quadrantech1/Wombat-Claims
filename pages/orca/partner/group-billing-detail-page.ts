@@ -6,7 +6,7 @@ import { getDefaultGroupBillingDetails, GroupBillingDetails } from '@data/orca/g
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 
-export class GroupBillingDetailPage extends BasePage {
+export class GroupBillingDetailScreen extends BasePage {
     // Overview
     groupNameTextBox = new TextBox(this.page, "#GroupBilling_GroupName");
     groupActiveCheckbox = new Checkbox(this.page, "#GroupBilling_Active");
@@ -32,7 +32,7 @@ export class GroupBillingDetailPage extends BasePage {
      * Fills group billing detail section
      * @param groupBillingDetails - Partial group billing details data
      */
-    async fillGroupBillingDetailSection(groupBillingDetails?: Partial<GroupBillingDetails>): Promise<void> {
+    async populateGroupBillingSection(groupBillingDetails?: Partial<GroupBillingDetails>): Promise<void> {
         const data = { ...getDefaultGroupBillingDetails(), ...groupBillingDetails };
         logger.info(`[GroupBillingDetailPage.fillGroupBillingDetailSection] - Filling group billing details`);
         await this.groupNameTextBox.setText(data.groupName);

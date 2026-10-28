@@ -2,7 +2,7 @@ import { Button } from '@controls/button';
 import { Label } from '@controls/label';
 import { BasePage } from '@pages/base-page';
 
-export class AngularAlertSection extends BasePage {
+export class AngularAlertPanel extends BasePage {
     titleLabel = new Label(this.page, "//h5[@class='modal-title']/span");
     bodyMessage = new Label(this.page, "//h5[@class='modal-body']/span");
     closeButton = new Button(this.page, this.page.getByText('Close'));

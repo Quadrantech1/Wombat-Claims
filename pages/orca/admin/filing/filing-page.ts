@@ -6,9 +6,9 @@ import { Select } from '@controls/select';
 import { Table } from '@controls/table';
 import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
-import { AlertSection } from '@pages/orca/common-section/alert-section';
+import { AlertPanel } from '@pages/orca/common-section/alert-section';
 
-export class FilingPage extends BasePage {
+export class FilingScreen extends BasePage {
     addNewButton = new Button(this.page, "xpath=//button[text()='Add New']");
     fieldRequiredLabel = new Label(this.page, "xpath=//div[@class='text-danger']");
     searchButton = new Button(this.page, "xpath=//button[text()='Search']");
@@ -31,6 +31,6 @@ export class FilingPage extends BasePage {
     cancelOverrideEndTextBox = new TextBox(this.page, "id=CancelEndDate");
     saveButton = new Button(this.page, "xpath=//button[text()=' Save']");
     stateFillingIdTable = new Table(this.page, "xpath=//div[@class='container']");
-    alertSection = new AlertSection (this.page);
+    alertSection = new AlertPanel (this.page);
     displayFilterTextBox = new TextBox(this.page, this.page.getByRole('textbox', { name: 'Display filter' }));
 }

@@ -6,7 +6,7 @@ import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 
-export class QuoteApiPage extends BasePage {
+export class QuoteApiScreen extends BasePage {
     zipCodeTextBox = new TextBox(this.page, "//input[@formcontrolname='zipCode']");
     marketChannelSelect = new Select(this.page, "//select[@formcontrolname='marketChannelId']");
     emailTextBox = new TextBox(this.page, "//input[@formcontrolname='email']");
@@ -23,7 +23,7 @@ export class QuoteApiPage extends BasePage {
     /**
      * Fills out main information for quote API
      */
-    async filloutMainInformation(quoteAPIMainInformation: { zipCode: string; marketChannel: string; email: string }): Promise<void> {
+    async populateMainDetails(quoteAPIMainInformation: { zipCode: string; marketChannel: string; email: string }): Promise<void> {
         logger.info(`[QuoteApiPage.filloutMainInformation] - Filling main information`);
         await this.zipCodeTextBox.setText(quoteAPIMainInformation.zipCode);
         await this.setZipCodeButton.click();

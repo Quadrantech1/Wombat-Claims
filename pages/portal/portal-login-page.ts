@@ -4,7 +4,7 @@ import { TextBox } from '@controls/textbox';
 import { MailosaurService } from '@services/mailosaur-service';
 import { logger } from '@utils/logger-util';
 import { BasePage } from '../base-page';
-import { AlertSection } from '@pages/orca/common-section/alert-section';
+import { AlertPanel } from '@pages/orca/common-section/alert-section';
 
 
 export class PortalLoginPage extends BasePage {
@@ -27,7 +27,7 @@ export class PortalLoginPage extends BasePage {
     createAccountButton = new Button(this.page, this.page.getByRole('button', { name: 'Create Account' }));
 
     // alert
-    alertSection = new AlertSection(this.page);
+    alertSection = new AlertPanel(this.page);
 
     /**
      * Log in using a one-time passcode sent to the provided email address.

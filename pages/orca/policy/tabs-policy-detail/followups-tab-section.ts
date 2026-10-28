@@ -3,7 +3,7 @@ import { Link } from '@controls/link';
 import { Table } from '@controls/table';
 import { BasePage } from '@pages/base-page';
 
-export class FollowsUpTabSection extends BasePage {
+export class FollowUpsTabPanel extends BasePage {
     addNewFollowUpsButton = new Button(this.page, '//div[@id="followups"]//a[@title="Create Followup"]');
     followUpsTable = new Table(this.page, '//table[@id="followups-table"]');
     takeOwnershipLink = new Link(this.page, this.page.getByRole('link', { name: 'Take Ownership' }));

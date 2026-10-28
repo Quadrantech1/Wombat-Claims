@@ -4,7 +4,7 @@ import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 
-export class McLeadDetailsPage extends BasePage {
+export class McLeadDetailsScreen extends BasePage {
     salesforceIdTextBox = new TextBox(this.page, "xpath=//input[@id = 'Pet_SalesforceId' and @type ='text']");
     mcLeadDetailsLabel = new Label(this.page, "xpath=//h3[text()='McLead Details']");
     registrationNo = new TextBox(this.page, "id=Pet_RegNo");
@@ -17,7 +17,7 @@ export class McLeadDetailsPage extends BasePage {
      * @param name - Customer name to find in the table
      * @returns Label control for the customer row
      */
-    getAlternativeCustomer(name: string): Label {
+    alternativeCustomerLocator(name: string): Label {
         logger.info(`[McLeadDetailsPage.getAlternativeCustomer] - Getting alternative customer row for: ${name}`);
         return new Label(this.page, `xpath=//table[@id="customers-table"]//td[contains(text(),"${name}")]/parent::*`);
     }
@@ -27,9 +27,9 @@ export class McLeadDetailsPage extends BasePage {
      * @param name - Customer name to verify
      * @returns Promise<boolean> - true if customer is active, false if inactive
      */
-    async isAlternativeCustomerActive(name: string): Promise<boolean> {
+    async hasActiveAlternativeCustomer(name: string): Promise<boolean> {
         logger.info(`[McLeadDetailsPage.isAlternativeCustomerActive] - Checking if customer ${name} is active`);
-        const customerRow = this.getAlternativeCustomer(name);
+        const customerRow = this.alternativeCustomerLocator(name);
         const className = await customerRow.getLocator().getAttribute('class');
         const isActive = className !== 'muted';
         logger.info(`[McLeadDetailsPage.isAlternativeCustomerActive] - Customer ${name} active status: ${isActive} (class: ${className})`);

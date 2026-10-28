@@ -7,7 +7,7 @@ import { logger } from '@utils/logger-util';
 import { getTextPDF, pdfContainsText, pdfContainsTextNormalized } from '@utils/pdf-util';
 import { timeouts } from '@utils/timeouts-util';
 
-export class AttachmentTabSection extends BasePage {
+export class PolicyAttachmentsTabPanel extends BasePage {
     // Attachment tab link controls
     term1Link = new Label(this.page, "//a[@class ='accordion-toggle ajax-get' and contains(text(),'Term')]");
     term2Link = new Label(this.page, "//a[contains(text(),'Term 2')]");
@@ -36,7 +36,7 @@ export class AttachmentTabSection extends BasePage {
     soldByLabel = new Label(this.page, "//div[@class='accordion-body in collapse']//div[contains(@class,'row-fluid')][contains(text(),'Sold By')]");
 
 
-    async getDownloadLinkFromLink(nameDocument: string): Promise<string> {
+    async resolveDownloadLink(nameDocument: string): Promise<string> {
         const document = new Link(this.page, `//div[contains(text(),"${nameDocument}")]/..//a[not (@title)]`);
         const href = await document.getAttribute('href');
         if (!href) {
@@ -45,7 +45,7 @@ export class AttachmentTabSection extends BasePage {
         return href;
     }
 
-    async getDeclarationPdfTexts(folderId: string, filePrefix: string = 'Declarations'): Promise<string[]> {
+    async readDeclarationPdfTexts(folderId: string, filePrefix: string = 'Declarations'): Promise<string[]> {
         const downloadLinks = this.declarationDownloadLinks.getLocator();
         const declarationPdfTexts: string[] = [];
 
@@ -64,7 +64,7 @@ export class AttachmentTabSection extends BasePage {
         return declarationPdfTexts;
     }
 
-    async openDeclarationDocumentInNewTab(declarationIndex: number): Promise<{ popup: Page; pdfUrl: string }> {
+    async launchDeclarationInNewTab(declarationIndex: number): Promise<{ popup: Page; pdfUrl: string }> {
         try {
             const declarationLink = this.declarationDownloadLinks.getLocator().nth(declarationIndex);
             await declarationLink.waitFor({ state: 'visible', timeout: timeouts.long });
@@ -82,12 +82,12 @@ export class AttachmentTabSection extends BasePage {
         }
     }
 
-    async openFirstDeclarationDocumentInNewTab(): Promise<{ popup: Page; pdfUrl: string }> {
-        return this.openDeclarationDocumentInNewTab(0);
+    async launchFirstDeclarationInNewTab(): Promise<{ popup: Page; pdfUrl: string }> {
+        return this.launchDeclarationInNewTab(0);
     }
 
-    async getDeclarationCountFromTerm1(): Promise<number> {
-        await this.verifyTerm1AndOtherAttachmentsLoaded();
+    async countTerm1Declarations(): Promise<number> {
+        await this.confirmTerm1AndOtherAttachmentsLoaded();
         await this.term1Link.click();
 
         await this.term1DeclarationsLink.waitForVisible(timeouts.long);
@@ -119,8 +119,8 @@ export class AttachmentTabSection extends BasePage {
      * @returns Promise<boolean> - resolves to true if the PDF contains the expected text, otherwise false
      * @throws Error - if the document download link cannot be found or if downloadPdf throws
      */
-    async verifyDocumentHasText(nameDocument: string, expectedText: string | string[], folderId: string): Promise<boolean> {
-        const documentLink = await this.getDownloadLinkFromLink(nameDocument);
+    async confirmDocumentContainsText(nameDocument: string, expectedText: string | string[], folderId: string): Promise<boolean> {
+        const documentLink = await this.resolveDownloadLink(nameDocument);
         await downloadPdf(this.page, documentLink, folderId, `${nameDocument}.pdf`);
         if (!await pdfContainsText(folderId, `${nameDocument}.pdf`, expectedText)) {
             throw new Error(`PDF for ${nameDocument} does not contain expected text: ${expectedText}`);
@@ -129,7 +129,7 @@ export class AttachmentTabSection extends BasePage {
     }
 
     /**
-     * Same as {@link verifyDocumentHasText}, but ignores whitespace/line break differences.
+     * Same as {@link confirmDocumentContainsText}, but ignores whitespace/line break differences.
      * Use for long sentences that may wrap across multiple lines in the PDF.
      *
      * @param nameDocument - The visible name of the document link (e.g. 'Cancellation Letter')
@@ -138,10 +138,10 @@ export class AttachmentTabSection extends BasePage {
      * @returns Promise<boolean> - resolves to true if the PDF contains the expected text
      * @throws Error - if the document download link cannot be found, if downloadPdf throws, or if the PDF does not contain the expected text
      */
-    async verifyDocumentHasNormalizedText(nameDocument: string, expectedText: string | string[], folderId: string): Promise<boolean> {
+    async confirmDocumentContainsNormalizedText(nameDocument: string, expectedText: string | string[], folderId: string): Promise<boolean> {
         let documentLink: string;
         try {
-            documentLink = await this.getDownloadLinkFromLink(nameDocument);
+            documentLink = await this.resolveDownloadLink(nameDocument);
         } catch (e) {
             throw new Error(`[AttachmentTabSection.verifyDocumentHasNormalizedText] - ${e instanceof Error ? e.message : e}`);
         }
@@ -161,16 +161,16 @@ export class AttachmentTabSection extends BasePage {
      * @returns Promise<boolean> resolves to true when both links are visible
      * @throws Error when links are not visible after one reload attempt
      */
-    async verifyTerm1AndOtherAttachmentsLoaded(): Promise<boolean> {
+    async confirmTerm1AndOtherAttachmentsLoaded(): Promise<boolean> {
         await this.page.waitForTimeout(timeouts.polling);
-        const checkLinks = async (): Promise<boolean> => {
+        const probeLinks = async (): Promise<boolean> => {
             const term1Visible = await this.term1Link.isDisplayed(timeouts.polling);
             const otherVisible = await this.otherLink.isDisplayed(timeouts.polling);
             return Boolean(term1Visible && otherVisible);
         };
 
         // First attempt
-        if (await checkLinks()) {
+        if (await probeLinks()) {
             return true;
         }
 
@@ -178,7 +178,7 @@ export class AttachmentTabSection extends BasePage {
         await this.page.reload({ waitUntil: 'networkidle' });
 
         // Second attempt after reload
-        if (await checkLinks()) {
+        if (await probeLinks()) {
             return true;
         }
 
@@ -193,7 +193,7 @@ export class AttachmentTabSection extends BasePage {
      * @returns Promise<boolean> resolves to true when the link is visible
      * @throws Error when the link is not visible after one reload attempt
      */
-    async waitForFinanceAndCancellationsLink(): Promise<boolean> {
+    async awaitFinanceAndCancellationsLink(): Promise<boolean> {
         if (await this.financeAndCancellationsLink.isDisplayed(timeouts.long)) {
             return true;
         }

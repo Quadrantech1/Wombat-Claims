@@ -6,7 +6,7 @@ import { Table } from '@controls/table';
 import { TextBox } from '@controls/textbox';
 import { BasePage } from '@pages/base-page';
 
-export class FinanceDashboardPage extends BasePage {
+export class FinanceDashboardScreen extends BasePage {
     generateInvoicesLink = new Link(this.page, "//a[contains(.,'Generate Invoices')]");
     updateBillingInfoLink = new Link(this.page, "//a[contains(.,'Update Billing Info')]");
     runTransactionsLink = new Link(this.page, "//a[contains(.,'Run Transactions')]");

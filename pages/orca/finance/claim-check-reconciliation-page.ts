@@ -3,7 +3,7 @@ import { Select } from '@controls/select';
 import { Table } from '@controls/table';
 import { BasePage } from '@pages/base-page';
 
-export class ClaimCheckReconciliationPage extends BasePage {
+export class ClaimCheckReconciliationScreen extends BasePage {
     bankAccountDropdown = new Select(this.page, "//select[@formcontrolname='bankAccount']");
     checkTypeDropdown = new Select(this.page, "//select[@formcontrolname='checkType']");
     checkStatusDropdown = new Select(this.page, "//label[contains(.,'Check Status')]/..//select");

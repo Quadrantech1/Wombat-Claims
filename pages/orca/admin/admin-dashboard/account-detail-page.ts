@@ -5,7 +5,7 @@ import { BasePage } from "@pages/base-page";
 import { Table } from "@controls/table";
 
 
-export class AccountDetailPage extends BasePage {
+export class AccountDetailScreen extends BasePage {
     cancelButton = new Button(this.page, "//a[@title='Cancel']");
     saveButton = new Button(this.page, "//button[contains(text(),'Save')]");
     activeCheckBox = new Checkbox(this.page, '#SysUser_Active');

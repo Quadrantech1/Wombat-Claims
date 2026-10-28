@@ -7,7 +7,7 @@ import { Page, expect } from '@playwright/test';
 import { extractFirstAmount, extractTotalAmount } from '@utils/amounts-util';
 import { logger } from '@utils/logger-util';
 
-export class CoverageTabSection extends BasePage {
+export class CoverageTabPanel extends BasePage {
   activeLink = new Link(this.page, "//a[text()='Active']");
   upcomingLink = new Link(this.page, "//a[text()='Upcoming']");
   expiredLink = new Link(this.page, "//a[text()='Expired']");
@@ -68,16 +68,16 @@ export class CoverageTabSection extends BasePage {
 
   premiumTolerance = 0.05;
 
-  viewPetDetailsTableButtonByPetName(petName: string): Button {
+  petDetailsViewButtonFor(petName: string): Button {
     return new Button(this.page, `//a[text()='${petName}']/ancestor::td//div[contains(@class, 'toggle')]`);
   }
 
-  async clickPetNameLinkTable(petName: string): Promise<void> {
+  async pressPetNameLink(petName: string): Promise<void> {
     const petNameLink = new Link(this.page, `//div[contains(@id,'coverages')]//a[text()='${petName}']`);
     await petNameLink.click();
   }
 
-  async getTheCpId(site: string): Promise<string> {
+  async readCpId(site: string): Promise<string> {
     const cpId = new Label(this.page, `//a[text()='${site}']/../../..//span[contains(.,'CP ID')]`);
     const text = await cpId.getText();
     return text.replace('CP ID:', '').replace(' ', '').replace('MakeChanges', '').replace('\n', '').replace('Make Changes', '').trim();
@@ -88,7 +88,7 @@ export class CoverageTabSection extends BasePage {
    * @param section Coverage section link text: 'Active' or 'Upcoming'
    * @throws Error when no CP ID is found in the section text
    */
-  async getCpIdBySection(section: 'Active' | 'Upcoming'): Promise<string> {
+  async readCpIdInSection(section: 'Active' | 'Upcoming'): Promise<string> {
     const text = await new Label(this.page, `//a[text()='${section}']/../../..//span[contains(.,'CP ID')]`).getText();
     const cpId = text.match(/CP ID:\s*(\d+)/)?.[1];
     if (!cpId) {
@@ -102,13 +102,13 @@ export class CoverageTabSection extends BasePage {
    * @param petName - The name of the pet
    * @returns The cancellation details text including Cancelled Effective, Reason, and Type
    */
-  async getCancelDetailMessageInTable(petName: string): Promise<string> {
+  async readCancellationMessageInTable(petName: string): Promise<string> {
     const label = new Label(this.page, `//tr[@class="warning"]//div[normalize-space(text())="${petName}"]/ancestor::tr/td[last()]`);
     const text = await label.getText();
     return text.replace(/\s+/g, ' ').trim();
   }
 
-  getAmountFromPremiumText(premiumText: string): number {
+  parseAmountFromPremiumText(premiumText: string): number {
     let amount = 0;
     const textWithoutCommas = premiumText.replace(/,/g, '');
     const matches = textWithoutCommas.match(/-?\d*\.?\d+/g);
@@ -118,43 +118,43 @@ export class CoverageTabSection extends BasePage {
     return amount;
   }
 
-  async getPremiumsValuesFromPetBasedCoverageId(coverageId: string): Promise<string> {
+  async readPremiumsForPetCoverageId(coverageId: string): Promise<string> {
     const locator = `//*[@id="coverage-${coverageId}"]//*[contains(.,'mo')]`;
     const premiumValueForPet = new Label(this.page, locator);
     return await premiumValueForPet.getText();
   }
 
-  static async checkIfPolicyTermIsDisplayedInPosition(page: Page, position: string, policyTerm: string): Promise<boolean> {
+  static async isPolicyTermShownAtPosition(page: Page, position: string, policyTerm: string): Promise<boolean> {
     const locator = `//div[@id='coverages-accordion'][${position}]//a[contains(text(),'${policyTerm}')]`;
     const policyTermLink = new Label(page, locator);
     return await policyTermLink.isDisplayed();
   }
 
-  addCommasToValue(valueWithoutCommas: string): string {
+  insertThousandsSeparators(valueWithoutCommas: string): string {
     const [integerPart, decimalPart = ''] = valueWithoutCommas.split('.');
     const formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return decimalPart ? `${formattedIntegerPart}.${decimalPart}` : formattedIntegerPart;
   }
 
-  async getNetPremium(cpId: string): Promise<number> {
+  async readNetPremium(cpId: string): Promise<number> {
     const netPremiumLabel = new Label(this.page, `//table[@id='search-results']//td[text()='${cpId}']/following-sibling::td[3]`);
     const text = await netPremiumLabel.getText();
-    return this.getAmountFromPremiumText(text);
+    return this.parseAmountFromPremiumText(text);
   }
 
-  async getBilledPremium(cpId: string): Promise<number> {
+  async readBilledPremium(cpId: string): Promise<number> {
     const billedPremiumLabel = new Label(this.page, `//table[@id='search-results']//td[text()='${cpId}']/following-sibling::td[4]`);
     const text = await billedPremiumLabel.getText();
-    return this.getAmountFromPremiumText(text);
+    return this.parseAmountFromPremiumText(text);
   }
 
-  async verifyNetPremiumEqualsBilledPremium(cpId: string): Promise<void> {
-    const netPremium = await this.getNetPremium(cpId);
-    const billedPremium = await this.getBilledPremium(cpId);
+  async confirmNetMatchesBilledPremium(cpId: string): Promise<void> {
+    const netPremium = await this.readNetPremium(cpId);
+    const billedPremium = await this.readBilledPremium(cpId);
     expect(Math.abs(netPremium - billedPremium)).toBeLessThan(this.premiumTolerance);
   }
 
-  async getCoveragePeriod(section: string): Promise<string> {
+  async readCoveragePeriod(section: string): Promise<string> {
     logger.info(`[CoverageTabSection.getCoveragePeriod] - Getting coverage period for section: ${section}`);
     return await new Label(this.page, `//div[contains(@id,"${section.toLowerCase()}-coverages")]//h3[contains(text(),'Coverage Period')]`).getText();
   }
@@ -165,7 +165,7 @@ export class CoverageTabSection extends BasePage {
    * @param waitingPeriodName Label text of the waiting period (e.g. 'Illness', 'Injury', 'Orthopedic')
    * @param section Which coverage panel to read from: 'active' or 'upcoming'
    */
-  async getWaitingPeriodValue(waitingPeriodName: string, section: 'active' | 'upcoming'): Promise<string> {
+  async readWaitingPeriod(waitingPeriodName: string, section: 'active' | 'upcoming'): Promise<string> {
     logger.info(`[CoverageTabSection.getWaitingPeriodValue] - Getting ${waitingPeriodName} waiting period value for section: ${section}`);
     return await new Label(this.page, `//*[contains(@id,'coverage') and contains(@id,'${section}')]//strong[text()='${waitingPeriodName}']/ancestor::div[@class='control-group'][1]/div[@class='controls']`).getText();
   }
@@ -175,7 +175,7 @@ export class CoverageTabSection extends BasePage {
    * Upcoming panels (which can both be present in the DOM at once) don't collide.
    * Columns: Product | Benefit | Annual Limit Applied | Annual Limit Remaining
    */
-  productDetailTableInSection(section: 'active' | 'upcoming'): Table {
+  productDetailsGrid(section: 'active' | 'upcoming'): Table {
     return new Table(
       this.page,
       `//*[contains(@id,'coverage') and contains(@id,'${section}')]//h3[text()='Product Details']/../table`,
@@ -183,17 +183,17 @@ export class CoverageTabSection extends BasePage {
     );
   }
 
-  async petStatusByPetName(status: string, petName: string): Promise<string> {
+  async statusOfPet(status: string, petName: string): Promise<string> {
     logger.info(`[CoverageTabSection.petStatusByPetName] - Getting pet status [${status}] for ${petName}`);
     return await new Label(this.page, `//a[.="${petName}"]/ancestor::tbody/tr/td[contains(text(),"${status}")]`).getText();
   }
 
-  async cancellationStatusByPetName(status: string, petName: string): Promise<string> {
+  async cancellationStatusOfPet(status: string, petName: string): Promise<string> {
     logger.info(`[CoverageTabSection.cancellationStatusByPetName] - Getting cancellation status [${status}] for ${petName}`);
     return await new Label(this.page, `//a[text()="${petName}"]/ancestor::tbody/tr/td//div/strong[contains(text(),"${status}")]`).getText();
   }
 
-  async getMasterPolicyTerm(termPeriod: number): Promise<string> {
+  async readMasterPolicyTerm(termPeriod: number): Promise<string> {
     logger.info(`[CoverageTabSection.getMasterPolicyTerm] - Getting master policy term for: ${termPeriod}`);
     const text = await new Label(this.page, `//div[@id="coverages-accordion"]//a[contains(text(), "Policy Term - ${termPeriod}")]`).getText();
     return text.replace(/\s/g, ' ');
@@ -204,7 +204,7 @@ export class CoverageTabSection extends BasePage {
    * Parses the premium text and extracts the yearly amount with dollar sign.
    * @returns The yearly premium amount as a string (e.g., "$378.61")
    */
-  async getUpcomingYearlyPremiumAmount(): Promise<string> {
+  async readNextYearlyPremium(): Promise<string> {
     const premiumText = (await this.premiumUpcomingYearlyAmountLabel.getText()).trim();
     return extractFirstAmount(premiumText);
   }
@@ -214,7 +214,7 @@ export class CoverageTabSection extends BasePage {
    * Parses text like "Premium Amount: $112.74 /mo + $3.00 Service Fee" and returns "$115.74"
    * @returns The total monthly premium amount as a string (e.g., "$115.74")
    */
-  async getUpcomingMonthlyPremiumAmount(): Promise<string> {
+  async readNextMonthlyPremium(): Promise<string> {
     const premiumText = (await this.premiumUpcomingMontlyAmountLabel.getText()).trim();
     return extractTotalAmount(premiumText);
   }
@@ -232,7 +232,7 @@ export class CoverageTabSection extends BasePage {
  * // Check all fields
  * await verifyCoveragePetDetails([{ petName: 'Pet 1', breed: 'Mixed', species: '(Dog)', age: '5', effectiveDate: '10/7/2025' }], 'active');
  */
-  async verifyCoveragePetDetails(
+  async confirmCoveragePetDetails(
     expectedPets: Array<{
       petName?: string;
       breed?: string;
@@ -320,7 +320,7 @@ export class CoverageTabSection extends BasePage {
    * @param expectedPets Array of expected pet details to find in the table
    * @param section Which table to verify: 'active' (default) or 'upcoming'
    */
-  async verifyCoveragePetDetailsUnordered(
+  async confirmCoveragePetDetailsAnyOrder(
     expectedPets: Array<{
       petName?: string;
       breed?: string;

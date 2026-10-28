@@ -9,7 +9,7 @@ import { timeouts } from '@utils/timeouts-util';
 import { getDefaultPolicySearchData, PolicySearchData } from '../../../data/orca/policy/policy-search-data';
 
 
-export class PolicyDashboardPage extends BasePage {
+export class PolicyDashboardScreen extends BasePage {
 
 
     policyNumberTextBox = new TextBox(this.page, "#SearchCriteria_PolicyNo");
@@ -34,7 +34,7 @@ export class PolicyDashboardPage extends BasePage {
      * @param name - The pet name to search for
      * @returns Label element for the specified pet name
      */
-    setPetNameResultLabel(name: string): Label {
+    petNameResultLabelFor(name: string): Label {
         return new Label(this.page, `//*[contains(@id,'pet-search-accordion')]//strong[contains(text(),"${name}")]`);
     }
 
@@ -43,7 +43,7 @@ export class PolicyDashboardPage extends BasePage {
      * @param policySearchData - Optional search criteria to override defaults
      * @returns Promise that resolves when search is completed
      */
-    async searchPolicyAction(policySearchData?: Partial<PolicySearchData>): Promise<void> {
+    async runPolicySearch(policySearchData?: Partial<PolicySearchData>): Promise<void> {
         logger.info(`[PolicyDashboardPage.searchPolicySection] - Performing policy search with criteria`);
         const searchData = { ...getDefaultPolicySearchData(), ...policySearchData };
 

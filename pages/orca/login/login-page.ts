@@ -6,7 +6,7 @@ import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 import { Role, getCredentialsForRole } from '@utils/user-credentials-util';
 
-export class LoginPage extends BasePage {
+export class LoginScreen extends BasePage {
   emailTextBox = new TextBox(this.page, '#Email');
   passwordTextBox = new TextBox(this.page, '#Password');
   loginButton = new Button(this.page, '//button[text()="Login"]');
@@ -15,7 +15,7 @@ export class LoginPage extends BasePage {
   messageLabel = new Label(this.page, '//div[@class="alert alert-success"]');
   messageErrorLabel = new Label(this.page, '//div[@class="alert alert-error"]');
 
-  async loginTask(user: string, password: string): Promise<void> {
+  async performLogin(user: string, password: string): Promise<void> {
     logger.info('[LoginPage.loginTask] Login using user: ' + user + ' and password: ' + password);
     await this.emailTextBox.setText(user);
     await this.passwordTextBox.setText(password);
@@ -28,7 +28,7 @@ export class LoginPage extends BasePage {
    * @param role - The role of the user to log in as. Default is 'admin'.
    * @returns {Promise<void>} - A promise that resolves when the login is complete.
    */
-  async iAmLoggedUsingRole(role: Role = Role.Admin): Promise<void> {
+  async signedInAsRole(role: Role = Role.Admin): Promise<void> {
     logger.info('[LoginPage.iAmLoggedUsingRole] Login using role: ' + role);
     const { user, password } = getCredentialsForRole(role);
     await this.emailTextBox.setText(user);

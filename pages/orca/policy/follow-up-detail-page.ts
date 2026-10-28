@@ -6,7 +6,7 @@ import { FollowUpDetailData, getDefaultFollowUpDetailData } from '@data/orca/fol
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 
-export class FollowUpDetailPage extends BasePage {
+export class FollowUpDetailScreen extends BasePage {
     assignedToSelect = new CustomSelectSpan(
         this.page,
         "//span[@id='select2-assigned-to-container']",
@@ -30,7 +30,7 @@ export class FollowUpDetailPage extends BasePage {
      * Fills the follow-up detail form with provided data or defaults
      * @param data - Optional data object with form fields to override defaults
      */
-    async fillFollowUpDetailForm(data?: Partial<FollowUpDetailData>): Promise<void> {
+    async populateFollowUpForm(data?: Partial<FollowUpDetailData>): Promise<void> {
         const defaultData = getDefaultFollowUpDetailData();
         const formData = { ...defaultData, ...data };
         logger.info(`[FollowUpDetailPage.fillFollowUpDetailForm] - Filling follow-up detail form with data: ${JSON.stringify(formData)}`);

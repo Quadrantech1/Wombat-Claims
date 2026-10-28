@@ -5,7 +5,7 @@ import { Table } from '@controls/table';
 import { BasePage } from '@pages/base-page';
 import { logger } from '@utils/logger-util';
 
-export class CustomerTabSection extends BasePage {
+export class CustomerTabPanel extends BasePage {
 
     viewCustomerIconInActionsLink = new Link(this.page, "//a[@title='View Customer']");
     addCustomerButton = new Button(this.page, "//a[@title='Add Customer']");
@@ -16,7 +16,7 @@ export class CustomerTabSection extends BasePage {
      * @param email Customer email to check for
      * @returns True if email is displayed, false otherwise
      */
-    async emailCustomer(email: string): Promise<boolean> {
+    async sendCustomerEmail(email: string): Promise<boolean> {
         logger.info(`[CustomerTabSection.emailCustomer] - Checking if email '${email}' is displayed`);
         return await new Label(this.page, `//*[contains(@id,'customers')]//a[contains(text(),'${email}')]`).isDisplayed();
     }
@@ -25,7 +25,7 @@ export class CustomerTabSection extends BasePage {
      * Clicks on the delete icon for a specific customer by name
      * @param expectedCustomerName Name of the customer to delete
      */
-    async clickOnDeleteIcon(expectedCustomerName: string): Promise<void> {
+    async pressDeleteIcon(expectedCustomerName: string): Promise<void> {
         logger.info(`[CustomerTabSection.clickOnDeleteIcon] - Clicking delete icon for customer '${expectedCustomerName}'`);
 
         const rowCount = await this.customerTable.getLocator().locator('tbody tr').count();

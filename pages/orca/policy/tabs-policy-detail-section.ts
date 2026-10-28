@@ -1,19 +1,19 @@
 import { Label } from '@controls/label';
 import { BasePage } from '@pages/base-page';
-import { GroupAttachmentTabSection } from '@pages/orca-group/certificate/group-attachment-tab-section';
-import { PetTabSection } from '@pages/orca/policy/tabs-policy-detail/pet-tab-section';
+import { GroupAttachmentsTabPanel } from '@pages/orca-group/certificate/group-attachment-tab-section';
+import { PetTabPanel } from '@pages/orca/policy/tabs-policy-detail/pet-tab-section';
 import { logger } from '@utils/logger-util';
 import { timeouts } from '@utils/timeouts-util';
-import { LoadingSection } from '../common-section/loading-section';
-import { AttachmentTabSection } from './tabs-policy-detail/attachment-tab-section';
-import { ClaimTabSection } from './tabs-policy-detail/claim-tab-section';
-import { CoverageTabSection } from './tabs-policy-detail/coverage-tab-setion';
-import { CustomerTabSection } from './tabs-policy-detail/customer-tab-section';
-import { FollowsUpTabSection } from './tabs-policy-detail/followups-tab-section';
-import { NoteTabSection } from './tabs-policy-detail/note-tab-section';
-import { PolicyStatusHistoryTabSection } from './tabs-policy-detail/policy-status-history-tab-section';
-import { SelfServiceChangesTabSection } from './tabs-policy-detail/self-service-changes-tab-section';
-import { TransactionTabSection } from './tabs-policy-detail/transaction-tab-section';
+import { LoadingPanel } from '../common-section/loading-section';
+import { PolicyAttachmentsTabPanel } from './tabs-policy-detail/attachment-tab-section';
+import { PolicyClaimsTabPanel } from './tabs-policy-detail/claim-tab-section';
+import { CoverageTabPanel } from './tabs-policy-detail/coverage-tab-setion';
+import { CustomerTabPanel } from './tabs-policy-detail/customer-tab-section';
+import { FollowUpsTabPanel } from './tabs-policy-detail/followups-tab-section';
+import { PolicyNotesTabPanel } from './tabs-policy-detail/note-tab-section';
+import { PolicyStatusHistoryTabPanel } from './tabs-policy-detail/policy-status-history-tab-section';
+import { SelfServiceChangesTabPanel } from './tabs-policy-detail/self-service-changes-tab-section';
+import { TransactionTabPanel } from './tabs-policy-detail/transaction-tab-section';
 
 export enum TabPolicyOptions {
     coverageTab = 'Coverage(s)',
@@ -30,23 +30,23 @@ export enum TabPolicyOptions {
     priorCoverageCreditTab = 'Prior Coverage Credit',
 }
 
-export class TabsPolicyDetailSection extends BasePage {
+export class TabsPolicyDetailPanel extends BasePage {
 
-    coverageTabSection = new CoverageTabSection(this.page);
-    claimTabSection = new ClaimTabSection(this.page);
-    petTabSection = new PetTabSection(this.page);
-    attachmentTabSection = new AttachmentTabSection(this.page);
-    selfServiceChangesTabSection = new SelfServiceChangesTabSection(this.page);
-    transactionTabSection = new TransactionTabSection(this.page);
-    customerTabSection = new CustomerTabSection(this.page);
-    noteTabSection = new NoteTabSection(this.page);
-    followupsTabSection = new FollowsUpTabSection(this.page);
-    policyStatusHistoryTabSection = new PolicyStatusHistoryTabSection(this.page);
-    groupAttachmentTabSection = new GroupAttachmentTabSection(this.page);
+    coverageTabSection = new CoverageTabPanel(this.page);
+    claimTabSection = new PolicyClaimsTabPanel(this.page);
+    petTabSection = new PetTabPanel(this.page);
+    attachmentTabSection = new PolicyAttachmentsTabPanel(this.page);
+    selfServiceChangesTabSection = new SelfServiceChangesTabPanel(this.page);
+    transactionTabSection = new TransactionTabPanel(this.page);
+    customerTabSection = new CustomerTabPanel(this.page);
+    noteTabSection = new PolicyNotesTabPanel(this.page);
+    followupsTabSection = new FollowUpsTabPanel(this.page);
+    policyStatusHistoryTabSection = new PolicyStatusHistoryTabPanel(this.page);
+    groupAttachmentTabSection = new GroupAttachmentsTabPanel(this.page);
 
-    loadingSection = new LoadingSection(this.page);
+    loadingSection = new LoadingPanel(this.page);
 
-    async clickTabOption(option: TabPolicyOptions): Promise<void> {
+    async openTab(option: TabPolicyOptions): Promise<void> {
         logger.info("[TabsPolicyDetailSection>clickTabOption] tab option: " + option);
         let tabLink = new Label(this.page, `//a[@title="${option}"]`);
         await this.page.waitForLoadState('networkidle');

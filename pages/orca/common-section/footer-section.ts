@@ -3,7 +3,7 @@ import { Label } from '@controls/label';
 import { BasePage } from '@pages/base-page';
 import { Page } from '@playwright/test';
 
-export class FooterSection extends BasePage {
+export class FooterPanel extends BasePage {
 
   logoutButton = new Button(this.page,"//a[text()='Log Out']");
   loggedInAsLabel = new Label(this.page,"//footer//div[contains(text(),'Logged in as')]");
@@ -14,7 +14,7 @@ export class FooterSection extends BasePage {
     super(page);
   }
   
-  public async getUserLogged(): Promise<string> {
+  public async currentLoggedInUser(): Promise<string> {
     let value = await this.loggedInAsLabel.getText();
     value = value.replace("Logged in as", "").replace(/ |:/g, "");
     return value;
