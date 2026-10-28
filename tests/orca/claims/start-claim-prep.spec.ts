@@ -29,6 +29,9 @@ test('Orca > Verify preReq for start claim prep', { tag: ['@Regression', '@Orca'
 
     await test.step('Step 2: Click on start claim prep', async () => {
         // await orca.claimDashboard.startPreparingClaimButton.clickAndWait();
+        await orca.claimDashboard.startPreparingClaimButton.clickAndWait();
+        await page.waitForTimeout(2000);
+        await page.reload();
         await orca.claimDashboard.assignedLink.clickAndWait();
         await orca.claimDashboard.assignedTable.clickFirstRow();
         await orca.claimDashboard.assignedTable.waitForDisappear();
