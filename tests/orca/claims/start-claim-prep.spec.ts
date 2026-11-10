@@ -1,10 +1,14 @@
 import { test } from '@fixtures/api-fixtures';
+import { TabClaimOptions } from '@pages/orca/claim/tabs-claim-detail-section';
 import { HamburgerMenuOptions } from '@pages/orca/common-section/menu-top-section';
 import { TabPolicyOptions } from '@pages/orca/policy/tabs-policy-detail-section';
 import { OrcaScreenManager } from '@pages/page-managers/orca-page-manager';
 import { BrandUrl } from '@utils/brand-util';
 import { getDateWithSpecificFormat } from '@utils/date-util';
+import { downloadPdf } from '@utils/download-util';
 import { loginToOrca } from '@utils/login-orca-util';
+
+const claimAttachmentsFolder = 'claim-attachments';
 
 test('Orca > Confirm prerequisites are met before preparing to start a claim', { tag: ['@Regression', '@Orca', '@ClaimsTest'] }, async ({ page, navigation }) => {
     let orca: OrcaScreenManager;
@@ -36,6 +40,16 @@ test('Orca > Confirm prerequisites are met before preparing to start a claim', {
     await test.step('Step 4: Open a fresh claim using default settings', async () => {
         // await orca.policyDetailPage.tabsPolicyDetailSection.claimTabSection.addNewClaimButton.clickAndWait();
         nameOnClaimsDetails = (await orca.claimDetailPage.readNameFromClaimDetails()).toString();
+
+        await orca.claimDetailPage.tabsClaimDetailSection.openTab(TabClaimOptions.attachmentTab);
+        await orca.claimDetailPage.tabsClaimDetailSection.attachmentTabSection.confirmClaimResultLinkLoaded();
+        await orca.claimDetailPage.tabsClaimDetailSection.attachmentTabSection.claimsResultLink.clickAndWait();
+
+        const claimsFormLink = await orca.claimDetailPage.tabsClaimDetailSection.attachmentTabSection.claimPdfLinkNamed('Claims', 'Claims Form');
+        await downloadPdf(page, claimsFormLink, claimAttachmentsFolder, 'claims-form.pdf');
+
+        const invoiceLink = await orca.claimDetailPage.tabsClaimDetailSection.attachmentTabSection.claimPdfLinkNamed('Uploaded Files', 'Uploaded File');
+        await downloadPdf(page, invoiceLink, claimAttachmentsFolder, 'invoice.pdf');
 
         await orca.claimDetailPage.returnToPolicyButton.clickAndWait();
         await orca.policyDetailPage.tabsPolicyDetailSection.openTab(TabPolicyOptions.customerTab);

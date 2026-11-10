@@ -42,6 +42,7 @@
     "report": "npx playwright show-report playwright-report/html-report",
     "regression:report": "npx playwright show-report regression-report/playwright-report/html-report",
     "install:browsers": "playwright install chromium",
+    "ocr:claim": "ts-node ./scripts/extract-claim.ts",
     "typecheck": "tsc --noEmit"
   }
 }

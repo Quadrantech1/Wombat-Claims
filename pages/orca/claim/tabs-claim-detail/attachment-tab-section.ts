@@ -3,6 +3,7 @@ import { Checkbox } from '@controls/checkbox';
 import { Label } from '@controls/label';
 import { Link } from '@controls/link';
 import { BasePage } from '@pages/base-page';
+import { Locator } from '@playwright/test';
 import { logger } from '@utils/logger-util';
 import { timeouts } from '@utils/timeouts-util';
 
@@ -32,6 +33,15 @@ export class ClaimAttachmentsTabPanel extends BasePage {
      * @throws Error if the PDF link is not found
      */
     async claimPdfLinkNamed(nameDocument: string, secondDescription?: string): Promise<string> {
+        const linkClaimPDF = await this.claimPdfLinkLocatorNamed(nameDocument, secondDescription);
+        const href = await linkClaimPDF.getAttribute('href');
+        if (href === null) {
+            throw new Error(`[AttachmentTabSection.getLinkForClaimPDFByName] - PDF link href attribute not found for document: ${nameDocument}${secondDescription ? ` - ${secondDescription}` : ''}`);
+        }
+        return href;
+    }
+
+    async claimPdfLinkLocatorNamed(nameDocument: string, secondDescription?: string): Promise<Locator> {
         let xpath: string;
 
         if (secondDescription) {
@@ -42,13 +52,9 @@ export class ClaimAttachmentsTabPanel extends BasePage {
             xpath = `//div[contains(text(),'${nameDocument}')]/..//a[contains(.,'.pdf')]`;
         }
 
-        const linkClaimPDF = new Link(this.page, xpath);
-        await linkClaimPDF.waitForVisible(timeouts.default);
-        const href = await linkClaimPDF.getAttribute("href");
-        if (href === null) {
-            throw new Error(`[AttachmentTabSection.getLinkForClaimPDFByName] - PDF link href attribute not found for document: ${nameDocument}${secondDescription ? ` - ${secondDescription}` : ''}`);
-        }
-        return href;
+        const linkClaimPDF = this.page.locator(xpath);
+        await linkClaimPDF.waitFor({ state: 'visible', timeout: timeouts.default });
+        return linkClaimPDF;
     }
 
     async countAttachmentTableEntries(value: string): Promise<number> {
